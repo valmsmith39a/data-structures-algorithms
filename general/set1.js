@@ -48,4 +48,34 @@ const s = 'anagram'
 const t = 'nagaram'
 // const s = 'rat'
 // const t = 'car'
-console.log(anagram(s, t))
+// console.log(anagram(s, t))
+
+/*
+
+  Sorting
+
+*/
+
+function sortLowHigh(arr) {
+  return arr.slice(0).sort((a, b) => a - b)
+}
+
+function sortHighLow(arr) {
+  return arr.slice(0).sort((a,b) => b - a)
+}
+
+function revert(arr) {
+  return arr.sort((a,b) => sampleArr.indexOf(a) - sampleArr.indexOf(b))
+}
+
+const sampleArr = [3, 2, 1, 5, 0]
+console.log('original sample array is: ', sampleArr)
+const lowToHigh = sortLowHigh(sampleArr)
+console.log('low to high is: ', lowToHigh)
+const revertResultLowHigh = revert(lowToHigh)
+console.log('revert back to original: ', revertResultLowHigh)
+const highToLow = sortHighLow(sampleArr)
+console.log('high to low is: ', highToLow)
+const revertResultHighLow = revert(highToLow)
+console.log('revert back to original: ', revertResultHighLow)
+
