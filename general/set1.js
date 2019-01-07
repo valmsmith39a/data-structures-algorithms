@@ -68,14 +68,44 @@ function revert(arr) {
   return arr.sort((a,b) => sampleArr.indexOf(a) - sampleArr.indexOf(b))
 }
 
-const sampleArr = [3, 2, 1, 5, 0]
-console.log('original sample array is: ', sampleArr)
-const lowToHigh = sortLowHigh(sampleArr)
-console.log('low to high is: ', lowToHigh)
-const revertResultLowHigh = revert(lowToHigh)
-console.log('revert back to original: ', revertResultLowHigh)
-const highToLow = sortHighLow(sampleArr)
-console.log('high to low is: ', highToLow)
-const revertResultHighLow = revert(highToLow)
-console.log('revert back to original: ', revertResultHighLow)
+// const sampleArr = [3, 2, 1, 5, 0]
+// console.log('original sample array is: ', sampleArr)
+// const lowToHigh = sortLowHigh(sampleArr)
+// console.log('low to high is: ', lowToHigh)
+// const revertResultLowHigh = revert(lowToHigh)
+// console.log('revert back to original: ', revertResultLowHigh)
+// const highToLow = sortHighLow(sampleArr)
+// console.log('high to low is: ', highToLow)
+// const revertResultHighLow = revert(highToLow)
+// console.log('revert back to original: ', revertResultHighLow)
 
+/*
+ Given an array of numbers and a target.
+ Return the indexes of the two numbers that add up to the target.
+ Complete in O(n) time.
+*/
+
+function abIndexes(arr) {
+  // Create a complements hash. Key is the complement. Value is the index.
+  let complementsHash = {}
+  arr.forEach((num, index) => {
+    complementsHash[target - num] = index
+  })
+  // Iterate through the array.
+  // If the number exists as the complement to another number in the array
+  // then we know that the number is one of the solutions.
+  // Store the index of the number.
+  for(let i = 0; i < arr.length; i++) {
+    if (complementsHash[arr[i]] !== undefined) {
+      solutions.push(i)
+    }
+  }
+  return solutions
+}
+
+const arr = [1, 2, 3]
+const target = 3
+let solutions = []
+console.log('array is: ', arr)
+console.log('target is: ', target)
+console.log('The indexes of the 2 numbers that add up to the target are: ', abIndexes(arr))
