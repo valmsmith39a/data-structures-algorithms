@@ -106,6 +106,27 @@ function abIndexes(arr) {
 const arr = [1, 2, 3]
 const target = 3
 let solutions = []
-console.log('array is: ', arr)
-console.log('target is: ', target)
-console.log('The indexes of the 2 numbers that add up to the target are: ', abIndexes(arr))
+// console.log('array is: ', arr)
+// console.log('target is: ', target)
+// console.log('The indexes of the 2 numbers that add up to the target are: ', abIndexes(arr))
+
+/*
+  Filter out duplicates
+  Ex. [2, 1, 3, 4, 5, 5, 5]
+*/
+
+let numArr = [2, 1, 3, 4, 5, 5, 5]
+let numHash = {}
+
+numArr.forEach((num, index) => {
+  if (!numHash[num]) {
+    numHash[num] = true
+  }
+})
+console.log('num hash is: ', numHash)
+const filteredArr = Object.keys(numHash)
+console.log('filtered arr: ', filteredArr)
+/*
+ Perform addition/subtraction of numbers
+ Ex. 6+9-3
+*/
