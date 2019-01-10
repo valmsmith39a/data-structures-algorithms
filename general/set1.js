@@ -123,10 +123,35 @@ numArr.forEach((num, index) => {
     numHash[num] = true
   }
 })
-console.log('num hash is: ', numHash)
-const filteredArr = Object.keys(numHash)
-console.log('filtered arr: ', filteredArr)
+// console.log('num hash is: ', numHash)
+// const filteredArr = Object.keys(numHash)
+// console.log('filtered arr: ', filteredArr)
+// let filteredArr = []
+// numArr.forEach((num) => {
+//   // if (!filteredArr[num) {
+//     // filteredArr[num] = true
+//   // }
+// })
+
+// console.log('filtered arr: ', filteredArr)
+
 /*
  Perform addition/subtraction of numbers
  Ex. 6+9-3
 */
+
+/*
+  (1) add(1)(2)
+  (2) add(1)(2)(3)(4)(5)()
+*/
+
+function add(num1) {
+
+  function sumTwoNums (num2) {
+    return num1 + num2
+  }
+
+  return sumTwoNums
+}
+
+console.log(add(1)(2))
