@@ -126,14 +126,6 @@ numArr.forEach((num, index) => {
 // console.log('num hash is: ', numHash)
 // const filteredArr = Object.keys(numHash)
 // console.log('filtered arr: ', filteredArr)
-// let filteredArr = []
-// numArr.forEach((num) => {
-//   // if (!filteredArr[num) {
-//     // filteredArr[num] = true
-//   // }
-// })
-
-// console.log('filtered arr: ', filteredArr)
 
 /*
  Perform addition/subtraction of numbers
@@ -145,6 +137,7 @@ numArr.forEach((num, index) => {
   (2) add(1)(2)(3)(4)(5)()
 */
 
+// Part 1: add(1)(2)
 function add(num1) {
 
   function sumTwoNums (num2) {
@@ -153,5 +146,6 @@ function add(num1) {
 
   return sumTwoNums
 }
+// console.log('add(1)(2):', add(1)(2))
 
-console.log(add(1)(2))
+// Parse a string every 10 characters
