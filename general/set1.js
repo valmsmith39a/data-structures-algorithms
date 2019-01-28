@@ -148,4 +148,31 @@ function add(num1) {
 }
 // console.log('add(1)(2):', add(1)(2))
 
-// Parse a string every 10 characters
+/*
+  Parse a string every 10 characters
+*/
+
+/*
+  Majority Element
+  Given an array of numbers, return the number that occurs 
+  more than n/2 times
+*/
+
+function majorityElement (arr) {
+  const majorityThreshold = Math.round(arr.length / 2)
+  let numsHash = {}
+  arr.forEach((num) => {
+    if(numsHash[num]) {
+      numsHash[num] = ++numsHash[num]
+    } else {
+      numsHash[num] = 1
+    }
+  })
+  return Object.keys(numsHash).reduce((a, b) => numsHash[a] > numsHash[b] ? a : b)
+}
+const testArr1 = [3, 2, 3]
+// console.log(majorityElement(testArr1))
+
+
+
+
