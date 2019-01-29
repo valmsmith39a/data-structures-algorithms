@@ -173,6 +173,46 @@ function majorityElement (arr) {
 const testArr1 = [3, 2, 3]
 // console.log(majorityElement(testArr1))
 
+/*
+  Determine if a number is a power of 3.
+  (i.e. is the number 3^x)
+*/
 
+// Solution 1
+function isPowerOfThree (n) {
+  let res = n
+   if (res === 1) {
+     return true
+   }
+   while (res >= 3) {
+    if (res === 3) {
+      return true
+    }
+     res =  res / 3
+   }
+   return false
+}
+// let n = 0
+// let n = 1
+// let n = 9
+// let n = 27
+// let n = 45
+// console.log(isPowerOfThree(n))
 
+// Solution 2
+function isPowerOfThreeSolution2 (n) {
+   if (n < 1) {
+     return true
+   }
+   while (n % 3 === 0) {
+     n = n / 3
+   }
+   return n === 1
+}
 
+// let n = 0
+// let n = 1
+// let n = 9
+// let n = 27
+// let n = 45
+// console.log(isPowerOfThree(n))
