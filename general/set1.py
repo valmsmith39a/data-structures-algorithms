@@ -26,3 +26,7 @@ def removeElement(self, nums: List[int], val: int) -> int:
             nums[count] = nums[i]
             count += 1
     return count
+
+
+def isPalindrome(self, x: int) -> bool:
+    return str(x) == str(x)[::-1]
