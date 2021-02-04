@@ -30,3 +30,27 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 def isPalindrome(self, x: int) -> bool:
     return str(x) == str(x)[::-1]
+
+# max profit k transactions
+
+def maxProfitWithKTransactions(prices, k):
+	# check for empty prices array
+	if not len(prices): 
+		return 0
+	# create the 2D array of profits 
+	profits = [[0 for d in prices] for t in range(k+1)]
+	# iterate through the 2D array of profits
+	# start with the rows
+	for t in range(1, k + 1):
+		# keep track of max profit from 1 transaction up to this point
+		# initialize to the smallest possible value in Python
+		maxThusFar = float("-inf")
+		for d in range(1, len(prices)):
+			# max of 
+			# 1. do nothing, so get the previous day's profits
+			# 2. sell, so get today's sell price + max profit from 1 transaction 
+			# Keep track of max profit from 1 transaction up to this point
+			maxThusFar = max(maxThusFar, profits[t-1][d-1] - prices[d-1])
+			profits[t][d] = max(profits[t][d-1], prices[d] + maxThusFar)
+	
+	return profits[-1][-1]
