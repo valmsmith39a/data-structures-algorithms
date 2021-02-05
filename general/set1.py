@@ -32,6 +32,7 @@ def isPalindrome(self, x: int) -> bool:
     return str(x) == str(x)[::-1]
 
 # max profit k transactions
+# O(nk) time | O(nk) space
 
 def maxProfitWithKTransactions(prices, k):
 	# check for empty prices array
@@ -54,3 +55,38 @@ def maxProfitWithKTransactions(prices, k):
 			profits[t][d] = max(profits[t][d-1], prices[d] + maxThusFar)
 	
 	return profits[-1][-1]
+
+# Reduce space complexity from O(nk) to O(n)
+def maxProfitWithKTransactions(prices, k):
+	# check for empty prices array
+	if not len(prices):
+		return 0
+	# initialize 2 profit rows that are used (n columns, 2 rows)
+	# instead of the entire prices matrix (n columns, k rows)
+	# this is the key to reducing space complexity
+	evenProfits = [0 for d in prices]
+	oddProfits = [0 for d in prices]
+	# iterate through k rows and d prices 
+	# skip the first row becaue it's 0s
+	for t in range(1, k + 1):
+		# initialize to smallest possible value
+		maxThusFar = float("-inf")
+		# swap current profit and previous profit 
+		# odd case 
+		if t % 2 == 1: 
+			currentProfits = oddProfits
+			previousProfits = evenProfits
+		# even case
+		else: 
+			currentProfits = evenProfits
+			previousProfits = oddProfits
+		# iterate through rices
+		for d in range(1, len(prices)):
+			# max profit comparing buying at each element in prices array
+			maxThusFar = max(maxThusFar, previousProfits[d - 1] - prices[d - 1])
+			# either you:
+			# (1) don't sell on the current day and make previous day's profits
+			# (2) sell on the current day and make sale price + maxThusFar
+			currentProfits[d] = max(currentProfits[d-1], maxThusFar + prices[d])
+	# return even profits if even row, odd profits if odd row 
+	return evenProfits[-1] if t % 2 == 0 else oddProfits[-1]
