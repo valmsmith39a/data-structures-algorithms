@@ -90,3 +90,59 @@ def maxProfitWithKTransactions(prices, k):
 			currentProfits[d] = max(currentProfits[d-1], maxThusFar + prices[d])
 	# return even profits if even row, odd profits if odd row 
 	return evenProfits[-1] if t % 2 == 0 else oddProfits[-1]
+
+# apartment hunting
+# O(b^2 * r) time | O(b) space
+
+def apartmentHunting(blocks, reqs):
+	maxDistancesAtBlocks = [float("-inf") for block in blocks]
+	for i in range(len(blocks)):
+		for req in reqs:
+			closestReqDistance = float("inf")
+			for j in range(len(blocks)):
+				if blocks[j][req]:
+					closestReqDistance = min(closestReqDistance, distanceBetween((i, j))
+			maxDistancesAtBlocks[i] = max(maxDistanceAtBlock[i], closesReqDistance)
+	return getIdxAtMinValue(maxDistancesAtBlocks)
+											 
+def getIdxAtMinValue(array):
+     idxAtMinValue = 0
+	minValue = float("inf")
+        for i in range(len(array)):
+            if currentValue < minValue: 
+                 minValue = currentValue
+			     idxAtMinValue = 1
+		return idxAtMinValue
+		
+def distanceBetween(a, b):
+	return abs(a-b)
+
+# apartment hunting reduce from O(b^2 * r) time to O(br) time 
+
+def apartmentHunting(blocks, reqs):
+	minDistancesFromBlocks = list(map(lambda req: getMinDistances(blocks, req), reqs))
+	maxDistancesAtBlocks = getMaxDistancesAtBlocks(blocks, minDistancesFromBlocks)
+	pass
+
+def getMinDistances(blocks, req):
+	minDistances = [0 for block in blocks]
+	closestReqIdx = float("inf")
+	for i in range(len(blocks)):
+		if blocks[i][req]:
+			closestReqIdx = i
+		minDistances[i] = distanceBetween(i, closestReqIdx)
+	for i in reversed(range(len(blocks))):
+		if blocks[i][req]:
+			closestReqIdx = i
+		minDistances[i] = min(minDistances[i], distanceBetween(i, closestReqIdx))
+	return minDistances
+	
+def getMaxDistancesAtBlocks(blocks, minDistancesFromBlocks):
+	maxDistancesAtBlocks = [0 for block in blocks]
+	for i in range(len(blocks)):
+		minDistancesAtBlock = list(map(lambda distances: distances[i] + 5, minDistancesFromBlocks))
+		maxDistancesAtBlocks[i] = max(minDistancesAtBlock)
+		
+def distanceBetween(a, b):
+	return abs(a-b)
+    
