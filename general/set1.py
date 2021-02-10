@@ -92,30 +92,45 @@ def maxProfitWithKTransactions(prices, k):
 	return evenProfits[-1] if t % 2 == 0 else oddProfits[-1]
 
 # apartment hunting
-# O(b^2 * r) time | O(b) space
-
+# O(b^2 * r + b) => b * (br + 1) => O(b^2r)) time
+# O(b) space
+# find the block that is the closest to all required buildings
 def apartmentHunting(blocks, reqs):
+	# track max distance from a block to a required building 
+	# at each block 
 	maxDistancesAtBlocks = [float("-inf") for block in blocks]
+	# find the minimum distance between a required building and block
+	# traverse the blocks
 	for i in range(len(blocks)):
+		# find the closest required distance for each required building
 		for req in reqs:
 			closestReqDistance = float("inf")
+			# traverse blocks to find the closest required distance 
 			for j in range(len(blocks)):
+				# required building exists at block
 				if blocks[j][req]:
-					closestReqDistance = min(closestReqDistance, distanceBetween((i, j))
-			maxDistancesAtBlocks[i] = max(maxDistanceAtBlock[i], closesReqDistance)
+					# i: index at current block
+					# j: index of block for a required building 
+					closestReqDistance = min(closestReqDistance, distanceBetween(i, j))
+			maxDistancesAtBlocks[i] = max(maxDistancesAtBlocks[i], closestReqDistance)
+	# return the index of block with the smallest max distance to a required building
 	return getIdxAtMinValue(maxDistancesAtBlocks)
-											 
+
+def distanceBetween(a, b): 
+	return abs(a - b)
+
 def getIdxAtMinValue(array):
-     idxAtMinValue = 0
+	# track index at min value
+	idxAtMinValue = 0
+	# track min value 
 	minValue = float("inf")
-        for i in range(len(array)):
-            if currentValue < minValue: 
-                 minValue = currentValue
-			     idxAtMinValue = 1
-		return idxAtMinValue
-		
-def distanceBetween(a, b):
-	return abs(a-b)
+	# traverse array to find the min value
+	for i in range(len(array)):
+		currentValue = array[i]
+		if currentValue < minValue:
+			minValue = currentValue
+			idxAtMinValue = i
+	return idxAtMinValue
 
 # apartment hunting reduce from O(b^2 * r) time to O(br) time 
 
@@ -145,4 +160,3 @@ def getMaxDistancesAtBlocks(blocks, minDistancesFromBlocks):
 		
 def distanceBetween(a, b):
 	return abs(a-b)
-    
