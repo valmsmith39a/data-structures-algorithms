@@ -160,3 +160,69 @@ def getMaxDistancesAtBlocks(blocks, minDistancesFromBlocks):
 		
 def distanceBetween(a, b):
 	return abs(a-b)
+
+# apartment hunting with improved time complexity, worse space complexity 
+# 2*O(br) + O(b) => O(br + b) => O(b(r + 1)) => O(br) time
+# O(br + b) => O(b(r + 1)) => O(br) space 
+def apartmentHunting(blocks, reqs):
+	# for each required building, precompute the 
+	# min distance from each block
+	# Ex 
+	# gym: [0, 0, 1, 1, 0]
+	# store: [1, 2, 2, 1, 0]
+	minDistancesFromBlocks = list(map(lambda req: getMinDistances(blocks, req) , reqs)) #O(br)
+	# from all the min distances from blocks, get the max distance 
+	maxDistancesAtBlocks = getMaxDistancesAtBlocks(blocks, minDistancesFromBlocks) #O(br)
+	return getIdxAtMinValue(maxDistancesAtBlocks) #O(b * (r + 1)) => O(br)
+
+# O(r): map over the required buildings 
+# 3O(b) -> O(b): min distances, 2 for loops
+# O(r) * O(b) => O(br)
+def getMinDistances(blocks, req):
+	# min distances from each block to required building 
+	minDistances = [0 for block in blocks]
+	closestReqIdx = float("inf")
+	# iterate through blocks and get the min distance from each block to req building
+	# iterate left to right first to get the min distance from each block to req building
+	for i in range(len(blocks)):
+		# track the index of the closest required building 
+		if blocks[i][req]:
+			closestReqIdx = i
+		minDistances[i] = distanceBetween(i, closestReqIdx)
+	# iterate right to left to get the min distance from each block to req building 
+	for i in reversed(range(len(blocks))):
+		if blocks[i][req]:
+			closestReqIdx = i
+		# want the minimum between what we found above and current calculation
+		minDistances[i] = min(minDistances[i], distanceBetween(i, closestReqIdx))
+	return minDistances
+
+# O(b): initialize the maxDistancesAtBlocks
+# O(b): for loop through the blocks 
+# O(r): minDistancesFromBlocks is array of length r 
+# O(b) + O(br) => O(b(1 + r)) => O(br)
+def getMaxDistancesAtBlocks(blocks, minDistancesFromBlocks):
+	# find the maximum distance of all the nearest distances to each block
+	maxDistancesAtBlocks = [0 for block in blocks]
+	for i in range(len(blocks)):
+		# for each required building, get the min distance at each block 
+		minDistancesAtBlock = list(map(lambda distances: distances[i], minDistancesFromBlocks))
+		# get the max distance from the list of min distances at each block 
+		maxDistancesAtBlocks[i] = max(minDistancesAtBlock)
+	return maxDistancesAtBlocks 
+
+def distanceBetween(a, b): 
+	return abs(a - b)
+
+def getIdxAtMinValue(array):
+	# track index at min value
+	idxAtMinValue = 0
+	# track min value 
+	minValue = float("inf")
+	# traverse array to find the min value
+	for i in range(len(array)):
+		currentValue = array[i]
+		if currentValue < minValue:
+			minValue = currentValue
+			idxAtMinValue = i
+	return idxAtMinValue
