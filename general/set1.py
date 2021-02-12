@@ -226,3 +226,22 @@ def getIdxAtMinValue(array):
 			minValue = currentValue
 			idxAtMinValue = i
 	return idxAtMinValue
+
+    
+# calendar 
+def calendarMatching(calendar1, dailyBounds1, calendar2, dailyBounds2, meetingDuration):
+	# update calendars to account for artificial meetings 
+	updatedCalendar1 = updateCalendar(calendar1, dailyBounds)
+	updatedCalendar2 = updateCalendar(calendar2, dailyBounds2)
+
+def updatedCalendar(calendar, dailyBounds):
+	updatedCalendar = calendar[:]
+	updatedCalendar.insert(0, ['0:00', dailyBounds[0]])
+	updatedCalendar.append([dailyBounds[1]], '23:59')
+	return list(map(lambda m: timeToMinutes(m[0]), timeToMinutes(m[1])), updatedCalendar)
+
+	
+def timeToMinutes(time): 
+	hours, minutes = list(map(int, time.split(':')))
+	
+timeToMinutes('23:59')
