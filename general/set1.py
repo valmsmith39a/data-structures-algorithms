@@ -245,3 +245,99 @@ def timeToMinutes(time):
 	hours, minutes = list(map(int, time.split(':')))
 	
 timeToMinutes('23:59')
+
+# O(c1 + c2) time | O(c1 + c2) space
+def calendarMatching(calendar1, dailyBounds1, calendar2, dailyBounds2, meetingDuration):
+	# update calendars to account for artificial meetings
+	updatedCalendar1 = updateCalendar(calendar1, dailyBounds1)
+	updatedCalendar2 = updateCalendar(calendar2, dailyBounds2)
+	mergedCalendar = mergeCalendars(updatedCalendar1, updatedCalendar2)
+	flattenedCalendar = flattenCalendar(mergedCalendar)
+	return getMatchingAvailabilities(flattenedCalendar, meetingDuration)
+
+# always O(c1) + O(c2) time | at most O(c1) + O(c2) space
+def mergeCalendars(calendar1, calendar2):
+	# merge calendars using merge sort algorithm
+	merged = []
+	# i to track calendar 1 
+	# j to track calendar 2
+	i, j = 0, 0
+	while i < len(calendar1) and j < len(calendar2):
+		meeting1, meeting2 = calendar1[i], calendar2[j]
+		if meeting1[0] < meeting2[0]:
+			merged.append(meeting1)
+			i += 1
+		else:
+			merged.append(meeting2)
+			j += 1
+
+	while i < len(calendar1): 
+		merged.append(calendar1[i])
+		i += 1
+		
+	while j < len(calendar2): 
+		merged.append(calendar2[j])
+		j += 1
+	return merged 
+
+# always O(c1) + O(c2), at most O(c1) + O(c2) space
+def flattenCalendar(calendar): 
+	# find all the values of calendar that overlap
+	# [0, 120]
+	# better to make a copy 
+	flattened = [calendar[0][:]]
+	for i in range(1, len(calendar)):
+		currentMeeting = calendar[i]
+		previousMeeting = flattened[-1]
+		currentStart, currentEnd = currentMeeting
+		previousStart, previousEnd = previousMeeting
+		if previousEnd >= currentStart:
+			newPreviousMeeting = [previousStart, max(previousEnd, currentEnd)]
+			# print('new previous meeting', newPreviousMeeting)
+			# print('flattened before', flattened)
+			flattened[-1] = newPreviousMeeting
+			# print('flattened after', flattened)
+		else: 
+			flattened.append(currentMeeting[:])
+	return flattened
+
+def updateCalendar(calendar, dailyBounds):
+	# copy the calendar to avoid mutating originatl input
+	# O(c)
+	updatedCalendar = calendar[:]  
+	# insert additional busy time range
+	updatedCalendar.insert(0, ['0:00', dailyBounds[0]])
+	updatedCalendar.append([dailyBounds[1], '23:59'])
+	# transform the string values to numeric values, representing the mintues 
+	# these values hold to compare times 
+	# O(c1) + O(c2)
+	return list(map(lambda m: [timeToMinutes(m[0]), timeToMinutes(m[1])], updatedCalendar))
+
+def getMatchingAvailabilities(calendar, meetingDuration):
+	matchingAvailabilities = []
+	for i in range(1, len(calendar)):
+		# start time is the end time of the previous meeting
+		start = calendar[i-1][1]
+		# end time is the start time of the current meeting (i)
+		end = calendar[i][0]
+		# beginning of next meeting (end time) - end of the current meeting (beginning time)
+		availabilityDuration = end - start
+		if availabilityDuration >= meetingDuration:
+			matchingAvailabilities.append([start, end])
+	return list(map(lambda m: [minutesToTime(m[0]), minutesToTime(m[1])], matchingAvailabilities))
+
+# O(1) time | O(1) space
+def timeToMinutes(time): 
+	hours, minutes = list(map(int, time.split(':')))
+	# convert to minutes
+	return hours * 60 + minutes
+
+# O(1) time | O(1) space 
+def minutesToTime(minutes): 
+	# Python will round down (flooring) the value 
+	hours = minutes // 60
+	# minutes modulo 60
+	mins = minutes % 60
+	hoursString = str(hours)
+	minutesString = '0' + str(mins) if mins < 10 else str(mins)
+	return hoursString + ':' + minutesString
