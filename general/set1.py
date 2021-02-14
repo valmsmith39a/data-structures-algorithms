@@ -341,3 +341,104 @@ def minutesToTime(minutes):
 	hoursString = str(hours)
 	minutesString = '0' + str(mins) if mins < 10 else str(mins)
 	return hoursString + ':' + minutesString
+
+# Flatten binary tree 
+
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+# O(n) time | O(n) space, n = number of nodes in Binary Tree
+def flattenBinaryTree(root):
+	# Basic way to flatten binary tree is to get nodes in order
+	inOrderNodes = getNodesInOrder(root, [])
+	# traverse list of nodes
+	# exclude the final node because will already be connected 
+	for i in range(0, len(inOrderNodes) - 1):
+		leftNode = inOrderNodes[i]
+		rightNode = inOrderNodes[i+1]
+		leftNode.right = rightNode
+		rightNode.left = leftNode
+	return inOrderNodes[0]
+
+def getNodesInOrder(tree, array):
+	if tree is not None:
+		getNodesInOrder(tree.left, array)
+		array.append(tree)
+		getNodesInOrder(tree.right, array)
+	return array 
+
+
+# O(n) time | O(d) space, d = depth of the tree (recursive calls)
+# if balanced binary tree, then O(log (n)) space 
+def flattenBinaryTree(root):
+	# recursive function: update the left/right pointers of a node with 
+	# the 1) right most node of the left sub-tree and the 
+	#     2) left most node of the right sub-tree
+	leftMost, _ = flattenTree(root)
+	return leftMost
+	
+def flattenTree(node):
+	if node.left is None:
+		leftMost = node
+	else:
+		leftSubtreeLeftMost, leftSubtreeRightMost = flattenTree(node.left)
+		connectNodes(leftSubtreeRightMost, node)
+		leftMost = leftSubtreeLeftMost
+		
+	if node.right is None: 
+		rightMost = node
+	else:
+		rightSubtreeLeftMost, rightSubtreeRightMost = flattenTree(node.right)
+		connectNodes(node, rightSubtreeLeftMost)
+		rightMost = rightSubtreeRightMost 
+		
+	return [leftMost, rightMost]
+		
+def connectdNodes(left, right):
+	left.right = right
+	right.left = left
+
+# Cannot reduce time complexity because must traverse all the nodes 
+# Can reduce space complexity to O(log n) space
+# O(log n) means, as n increases exponentially, space increases linearly. 
+# Ex. n = 10, 100, 1000, space = 1, 2, 3 
+
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+# O(n) time | O(d) space, d = depth of the tree (recursive calls)
+# if balanced binary tree, then O(log (n)) space 
+def flattenBinaryTree(root):
+	# recursive function: update the left/right pointers of a node with 
+	# the 1) right most node of the left sub-tree and the 
+	#     2) left most node of the right sub-tree
+	leftMost, _ = flattenTree(root)
+	return leftMost
+	
+def flattenTree(node):
+	if node.left is None:
+		leftMost = node
+	else:
+		leftSubtreeLeftMost, leftSubtreeRightMost = flattenTree(node.left)
+		connectNodes(leftSubtreeRightMost, node)
+		leftMost = leftSubtreeLeftMost
+		
+	if node.right is None: 
+		rightMost = node
+	else:
+		rightSubtreeLeftMost, rightSubtreeRightMost = flattenTree(node.right)
+		connectNodes(node, rightSubtreeLeftMost)
+		rightMost = rightSubtreeRightMost 
+		
+	return [leftMost, rightMost]
+		
+def connectNodes(left, right):
+	left.right = right
+	right.left = left
+	
