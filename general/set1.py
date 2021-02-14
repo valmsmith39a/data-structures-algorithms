@@ -402,10 +402,9 @@ def connectdNodes(left, right):
 	right.left = left
 
 # Cannot reduce time complexity because must traverse all the nodes 
-# Can reduce space complexity to O(log n) space
+# Can reduce space complexity to O(d), d = depth (height) of tree or O(log n), if balanced tree
 # O(log n) means, as n increases exponentially, space increases linearly. 
 # Ex. n = 10, 100, 1000, space = 1, 2, 3 
-
 class BinaryTree:
     def __init__(self, value, left=None, right=None):
         self.value = value
@@ -422,23 +421,28 @@ def flattenBinaryTree(root):
 	return leftMost
 	
 def flattenTree(node):
+	# return the left most node and right most node of flattened tree
 	if node.left is None:
 		leftMost = node
 	else:
+		# in left subtree recursively call flattenTree until get left most node 
 		leftSubtreeLeftMost, leftSubtreeRightMost = flattenTree(node.left)
-		connectNodes(leftSubtreeRightMost, node)
-		leftMost = leftSubtreeLeftMost
-		
-	if node.right is None: 
-		rightMost = node
+		# to flatten tree, connect the current node to the 
+		# right most node of left subtree 
+		connect (leftSubtreeRightMost, node)
+		leftMost = leftSubtreeLeftMost 
+	if node.right is None:
+		rightMost = node 
 	else:
+		# in right subtree recursively call flattenTree until get right most node 
 		rightSubtreeLeftMost, rightSubtreeRightMost = flattenTree(node.right)
-		connectNodes(node, rightSubtreeLeftMost)
-		rightMost = rightSubtreeRightMost 
-		
+		# connect current node to the left most node of the right subtree 
+		connect(node, rightSubtreeLeftMost)
+		rightMost = rightSubtreeRightMost
+	
 	return [leftMost, rightMost]
-		
+
 def connectNodes(left, right):
 	left.right = right
 	right.left = left
-	
+    
