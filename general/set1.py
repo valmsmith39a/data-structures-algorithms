@@ -445,4 +445,34 @@ def flattenTree(node):
 def connectNodes(left, right):
 	left.right = right
 	right.left = left
-    
+
+# Depth First Search 
+
+class Node: 
+	def __init__(self, name):
+		self.name = name
+		self.children = []
+
+	def depthFirstSearch(self, array):
+		"""
+		O(v + e) time
+		v = number of vertices (nodes) in graph		
+		Visit all the vertices: O(v) time
+		
+		e = number of edges in graph
+		call DFS on each child node. number of child nodes 
+		is number of edge 
+		
+		O(v) space: array returned of length v
+		And worst case v frames on call stack 
+		"""
+		# add the name of current node
+		# to the list of searched or "visited" nodes
+		array.append(self.name)
+		# call DFS function for each child node 
+		# of the current node
+		# "visit" a node 
+		for child in self.children:
+			child.depthFirstSearch(array)
+		# return the array of searched nodes 
+		return array
