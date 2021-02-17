@@ -476,3 +476,29 @@ class Node:
 			child.depthFirstSearch(array)
 		# return the array of searched nodes 
 		return array
+
+# breadth first search
+class Node:
+	def __init__(self, name):
+		self.name = name
+		self.children = []
+
+	# O(v + e) time, v = # of vertices, e = # of edges 
+	# O(v) space, storing all the node names in final array and 
+	# worst case of queue is all the nodes are children of the 
+	# root node. So have O(v - 1) space in queue or O(v) space 
+	def breadthFirstSearch(self, array):
+		# initialize the queue 
+		queue = [self]
+		# iterate through the queue
+		while len(queue) > 0:
+			# pop each node from queue in FIFo
+			# to get the current node 
+			current = queue.pop(0)
+			# add the name of current node to final array
+			array.append(current.name)
+			# add child nodes to the queue 
+			for child in current.children:
+				queue.append(child)
+		# return the final array
+		return array
