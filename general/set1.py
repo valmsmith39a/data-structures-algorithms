@@ -527,7 +527,11 @@ class BST:
 		self.value = value 
 		self.left = None
 		self.right = None 
-		
+
+    # O(log n) time on average, because removing half the nodes at each node 
+    # O(n) time in worst case if a chain of 1 child nodes 
+    # O(1) space, implemented iteratively - no frames stored on the call stack 
+
 	def insert(self, value):
 		#what node are we at 
 		currentNode = self
@@ -547,3 +551,64 @@ class BST:
 				else:
 					currentNode = currentNode.right
 		return self 
+
+    def contains(self, value):
+		currentNode = self
+		while currentNode is not None:
+			# go to left side of the subtree 
+			if value < currentNode.value:
+				currentNode = currentNode.left
+			# go to the right side of the subtree
+			elif value > currentNode.value: 
+				currentNode = currentNode.right
+			# if the value is equal to current node's value, then found the node 
+			else:
+				return True
+		# node not in BST 
+		return False
+
+    # O(log n) time on average, O(n) time worst, if chain of child nodes 
+	# O(1) space 
+	def remove(self, value, parentNode = None):
+		# 1. find the node trying to remove 
+		# 2. remove the node 
+		currentNode = self
+		while currentNode is not None:
+			if value < currentNode.value:
+				parentNode = currentNode
+				currentNode = currentNode.left
+			elif value > currentNode.value: 
+				parentNode = currentNode 
+				currentNode = currentNode.right
+			else: 
+				# 2 children nodes 
+				# find the left most value of the right subtree 
+				# replace current node with that value and remove that value 
+				if currentNode.left is not None and currentNode.right is not None:
+					currentNode.value = currentNode.right.getMinValue()
+					# call the remove on current node 
+					currentNode.right.remove(currentNode.value, currentNode)
+				elif parentNode is None:
+					if currentNode.left is not None:
+						currentNode.value = currentNode.left.value
+						currentNode.right = currentNode.left.right
+						ccurrentNode.left= currentNode.left.left 
+					elif currentNode.right is not None:
+						currentNode.value = currentNode.right.value
+						currentNode.left = currentNode.right.left
+						currentNode.right = currentNode.right.right
+					else: 
+						# root node has no child nodes 
+						currentNode.value = None 
+				elif parentNode.left == currentNode:
+					parentNode.left = currentNode.left if currentNode.left is not None else currentNode.right
+				elif parentNode.right == currentNode:
+					parentNode.right = currentNode.left if curretnnode.left is not None else currentNode.right
+				break		
+		return self
+
+def getMinValue(self):
+	currentNode = self
+	while currentNode.left is not None:
+		currentNode = currentNode.left
+	return currentNode.value 
