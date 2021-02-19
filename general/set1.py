@@ -517,3 +517,33 @@ def permutationsHelper(array, currentPermutation, permutations):
 			newArray = array[:i] + array[i+1:]
 			newPermutation = currentPermutation + [array[i]]
 			permutationsHelper(newArray, newPermutation, permutations)
+
+
+# binary search tree - insertion, search, delete
+
+class BST:
+	
+	def __init__(self, value):
+		self.value = value 
+		self.left = None
+		self.right = None 
+		
+	def insert(self, value):
+		#what node are we at 
+		currentNode = self
+		while True:
+			# explore the left subtree 
+			if value < currentNode.value:
+				if currentNode.left is None: 
+					# create and insert a value in BST 
+					currentNode.left = BST(value)
+					break
+				else:
+					currentNode = currentNode.left
+			else:
+				if currentNode.right is None:
+					currentNode.right = BST(value)
+					break
+				else:
+					currentNode = currentNode.right
+		return self 
