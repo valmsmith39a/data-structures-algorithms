@@ -611,4 +611,48 @@ def getMinValue(self):
 	currentNode = self
 	while currentNode.left is not None:
 		currentNode = currentNode.left
-	return currentNode.value 
+	return currentNode.value
+
+# O(n log n) time, because sift down (O(log n) time) on n elements
+# O(1) space
+def heapSort(array):
+	# build the max heap:
+	# max heap: 
+	# 	binary tree where first node (number) is the largest 
+	# 	parent node is larger than the 2 child nodes
+	# 	each level must be complete, except for last level which must have 
+	# 		0 or 2 end nodes per parent node 
+	buildMaxHeap(array)
+	# start from end
+	for endIdx in reversed(range(1, len(array))):
+		# first number is the largest 
+		# swap with the last number 
+		# last number is now sorted
+		# first to n - 1 numbers is now unsorted 
+		swap(0, endIdx, array)
+		# sift down the first number so that it gets to the right position
+		siftDown(0, endIdx - 1, array)
+	return array
+
+def buildMaxHeap(array):
+	firstParentIdx = (len(array) - 1) // 2
+	for currentIdx in reversed(range(firstParentIdx + 1)): 
+		siftDown(currentIdx, len(array) - 1, array)
+
+def siftDown(currentIdx, endIdx, heap):
+	childOneIdx = currentIdx * 2 + 1 
+	while childOneIdx <= endIdx:
+		childTwoIdx = currentIdx * 2 + 2 if currentIdx * 2 + 2 <= endIdx else -1 
+		if childTwoIdx > -1 and heap[childTwoIdx] > heap[childOneIdx]:
+			idxToSwap = childTwoIdx 
+		else:
+			idxToSwap = childOneIdx
+		if heap[idxToSwap] > heap[currentIdx]:
+			swap(currentIdx, idxToSwap, heap)
+			currentIdx = idxToSwap
+			childOneIdx = currentIdx * 2 + 1
+		else: 
+			break
+
+def swap(i, j, array):
+	array[j], array[i] = array[i], array[j]
