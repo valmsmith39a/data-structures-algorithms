@@ -656,3 +656,28 @@ def siftDown(currentIdx, endIdx, heap):
 
 def swap(i, j, array):
 	array[j], array[i] = array[i], array[j]
+
+# greedy algorithms: class photos 
+
+# O(n log n) time | O(1) space, because sort in place 
+def classPhotos(redShirtHeights, blueShirtHeights):
+	# Greedy algorithms: make the locally optimal choice at each stage 
+	# sort heights from tallest to shortest 
+	redShirtHeights.sort(reverse=True)
+	blueShirtHeights.sort(reverse=True)
+	# determine which shirt color in first row 
+	# compare heights of the tallest person of each row. first row must have the shorter of the two.
+	shirtColorInFirstRow = 'RED' if redShirtHeights[0] < blueShirtHeights[0] else 'BLUE'
+	for idx in range(len(redShirtHeights)):
+		redShirtHeight = redShirtHeights[idx]
+		blueShirtHeight = blueShirtHeights[idx]
+		# if red shirts in first row, then red shirt height must be small than blue shirt height
+		# if not, then not possible to take the class picture and return False 
+		if shirtColorInFirstRow == 'RED':
+			if redShirtHeight >= blueShirtHeight:
+				return False
+		else: 
+			if blueShirtHeight >= redShirtHeight:
+				return False
+	return True
+    
