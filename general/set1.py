@@ -680,4 +680,25 @@ def classPhotos(redShirtHeights, blueShirtHeights):
 			if blueShirtHeight >= redShirtHeight:
 				return False
 	return True
-    
+
+# O(n) time | O(min(n, a)) space, n = number of characters, a, number of unique characters 
+def longestSubstringWithoutDuplication(string): 
+	# hash table to track last scene index letters 
+	lastSeen = {}
+	longest = [0, 1]
+	startIdx = 0
+	for i, char in enumerate(string): 
+		# check to see if character in last seen hash table 
+		if char in lastSeen:
+			# update the start index 
+			# either it's the previous start index or 
+			# one index after last seen character
+			startIdx = max(startIdx, lastSeen[char] + 1)
+		# if current longest substring is smaller than new, 
+		# then update the longest substring 
+		if longest[1] - longest[0] < i + 1 - startIdx: 
+			longest = [startIdx, i + 1]
+		lastSeen[char] = i
+	# slice the string with indexes 
+	return string[longest[0]:longest[1]]
+		
