@@ -701,4 +701,41 @@ def longestSubstringWithoutDuplication(string):
 		lastSeen[char] = i
 	# slice the string with indexes 
 	return string[longest[0]:longest[1]]
+
+class LRUCache:
+    def __init__(self, maxSize):
+		self.cache = {}
+		self.maxSize = maxSize or 1
+		self.currentSize = 0
+		self.listOfMostRecent = DoublyLinkedList()
+		
+    def insertKeyValuePair(self, key, value):
+		if key not in self.cache:
+			if self.currentSize == self.maxSize:
+				self.evictLeastRecent()
+			else:
+				self.currentSize += 1
+			self.cache[key] = DoublyLinkedListNode(key, value)
+			self.updateMostRecent(self.cache[key])
+			
+		else: 
+			self.replaceKey(key, value)
+			
+    def getValueFromKey(self, key):
+
+    def getMostRecentKey(self):
+	
+	def evictLeastRecent(self):
+		self.listOfMostRecent.removeTail()
+
+	def replaceKey(self, key, value):
+		if key not in self.cache:
+			raise Exepction("Provided key isn't in the cache")
+		self.cache[key].value = value
+		
+	
+class DoublyLinkedList:
+	def __init(self, kdy, value):
+		self.key = keyONNO
+		slefvalu - baa: ONONe
 		
