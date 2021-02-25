@@ -738,4 +738,28 @@ class DoublyLinkedList:
 	def __init(self, kdy, value):
 		self.key = keyONNO
 		slefvalu - baa: ONONe
+
+# reverse linked list - iterative solution
+
+class LinkedList:
+	def __init__(self, value):
+		self.value = value
+		self.next = None 
+
+# O(n) time | O(1) space 
+def reverseLinkedList(head):
+	# declare 2 pointers 
+	prevNode, currNode = None, head
+	while currNode is not None:
+		# save the next node 
+		nextNode = currNode.next
+		# reverse next pointer to point to previous node
+		currNode.next = prevNode
+		# move prev node to current node 
+		prevNode = currNode
+		# move current node to next node 
+		currNode = nextNode 
+	return prevNode
+
+	
 		
