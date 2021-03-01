@@ -791,4 +791,15 @@ def isOutOfOrder(i, num, array):
 	if i == len(array) - 1:
 		return num < array[i - 1]
 	return num > array[i + 1] or num < array[i-1]
-    
+
+# O(n) time | O(h) space, h is height of binary tree 
+def nodeDepths(root, depth=0):
+	if root is None:
+		return 0
+	return depth + nodeDepths(root.left, depth + 1) + nodeDepths(root.right, depth + 1)
+
+class BinaryTree:
+	def __init__(self, value):
+		self.value = value
+		self.left = None
+		self.right = None
