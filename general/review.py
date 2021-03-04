@@ -63,3 +63,49 @@ def postOrderTraverse(tree, array):
 		postOrderTraverse(tree.right, array)
 		array.append(tree.value)
 	return array
+
+# two number sum
+
+# hash table method 
+# O(n) time: traversing through each element in the array
+# O(n) space: hash table to track the traversed elements 
+def twoNumberSum(array, targetSum):
+	# x + y = target 
+	# y = target - x
+	# traverse the array looking for y
+	# track traversed elements in hash table
+	nums = {}
+	for num in array:
+		# y = target - x
+		potentialMatch = targetSum - num
+		if potentialMatch in nums:
+			return [potentialMatch, num]
+		else:
+			nums[num] = True
+	return []
+
+# sort first, then use 2 pointers
+# O(n log n ) time: sort is log n time, traverse through n elements  
+# 	n log n + n => n(log n + 1) => O (n log n) time 
+# O(1) space: don't use additional space
+
+# sort the array first, then set 2 pointers
+def twoNumberSum(array, targetSum):
+	# sort the array first
+	array.sort()
+	# initialize the two pointers 
+	left = 0
+	right = len(array) - 1
+	while left < right:
+		# compute potential match
+		potentialMatch = array[left] + array[right]
+		if potentialMatch == targetSum:
+			return [array[left], array[right]]
+		# need a larger number, so move left pointer up
+		elif potentialMatch < targetSum:
+			left += 1
+		# need a smaller number, so move right pointer back
+		elif potentialMatch > targetSum:
+			right -= 1
+	# didn't find the target sum
+	return []
