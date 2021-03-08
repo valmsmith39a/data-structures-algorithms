@@ -1,3 +1,56 @@
+'''
+O(V + E) time: 
+	O(V), V = vertex: traverse all nodes (vertices), add each to current node 
+	O(E), E = edge: add child nodes to queue
+O(V) space: in worst case, queue of child nodes hold V - 1 nodes
+	if all children nodes coonnected to 1 parent, then V - 1 nodes in queue
+
+Breadth First Search: 
+1. Add root node to the queue
+2. Pop node from front of the queue, assign to current node
+3. Add current node name to final list of nodes
+4. Add children nodes to queue
+5. Repeat 2 - 4
+'''
+class Node:
+	def __init__(self, name): 
+		self.name = name
+		self.children = []
+		
+	def breadthFirstSearch(self, array):
+		queue = [self]
+		while len(queue) > 0:
+			current = queue.pop(0)
+			array.append(current.name)
+			for child in current.children:
+				queue.append(child)
+		return array
+
+'''
+Depth First Search
+
+1. Call DFS on a root node 
+2. Add node to the final array
+3. Call DFS on each child node 
+4. Repeat 
+
+O(V+E) time, V = vertices, E = Edges: traverse all the vertices and for each vertex, we also 
+traverse all the child nodes (edges)
+
+O(V) space: in the worst case, we are adding V frames to the call stack, 
+if each node only has one child node and we have a long string of nodes. 
+A - B - C - D - E ... 
+'''
+class Node:
+	def __init__(self, name):
+		self.name = name
+		self.children = []
+		
+	def depthFirstSearch(self, array):
+		array.append(self.name)
+		for child in self.children:
+			child.depthFirstSearch(array)
+		return array
 
 # return the sum of depths of all nodes in a binary tree
 
