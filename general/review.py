@@ -1,16 +1,78 @@
 '''
-O(V + E) time: 
-	O(V), V = vertex: traverse all nodes (vertices), add each to current node 
-	O(E), E = edge: add child nodes to queue
-O(V) space: in worst case, queue of child nodes hold V - 1 nodes
-	if all children nodes coonnected to 1 parent, then V - 1 nodes in queue
+Basic Hash Table: Two Number Sum
 
-Breadth First Search: 
+Problem: Return 2 numbers that equal the target sum or [].
+
+Iterate through array looking for potential match and store
+the number in a hash table if it's not a match
+
+1. Create a basic hash table 
+2. potentialMatch = targetSum - num
+3. Lookup potentialMatch in hash table and return potentialMatch and num if found
+4. If not found, store num in hash table, assign to True and continue
+'''
+
+def twoNumberSum(array, targetSum):
+	nums = {}
+	for num in array:
+		potentialMatch = targetSum - num
+		if potentialMatch in nums:
+			return [potentialMatch, num]
+		nums[num] = True
+	return []
+
+'''
+Binary Search
+
+Return index of target element or -1
+
+Recursive Solution:
+Repeatedly divide the array in half and see if the target is in the right 
+or left half of the array
+
+1. Left/Right pointers at beginning/end of array
+2. Check base case of empty array: left index > right index 
+3. Compute the floor of middle index
+4. Store the potential match
+5. 3 cases
+	a. target == potentialMatch
+	b. target < potential match => look (recursive call) in left half of array
+	c. target > potential match => look in right half of array
+
+Time/Space Complexity: 
+
+O (log n) time: eliminate 1/2 of elements in each iteration
+O (log 1) space: don't store anything
+'''
+
+def binarySearch(array, target):
+	return binarySearchHelper(array, target, 0, len(array) - 1)
+
+def binarySearchHelper(array, target, left, right):
+	if left > right:
+		return -1
+	middle = (left + right) // 2
+	potentialMatch = array[middle]
+	if target == potentialMatch:
+		return middle
+	elif target < potentialMatch:
+		return binarySearchHelper(array, target, left, middle - 1)
+	else: 
+		return binarySearchHelper(array, target, middle + 1, right)
+
+'''
+Graphs: Breadth First Search: 
 1. Add root node to the queue
 2. Pop node from front of the queue, assign to current node
 3. Add current node name to final list of nodes
 4. Add children nodes to queue
 5. Repeat 2 - 4
+
+O(V + E) time: 
+	O(V), V = vertex: traverse all nodes (vertices), add each to current node 
+	O(E), E = edge: add child nodes to queue
+O(V) space: in worst case, queue of child nodes hold V - 1 nodes
+	if all children nodes coonnected to 1 parent, then V - 1 nodes in queue
 '''
 class Node:
 	def __init__(self, name): 
@@ -27,8 +89,7 @@ class Node:
 		return array
 
 '''
-Depth First Search
-
+Graphs: Depth First Search
 1. Call DFS on a root node 
 2. Add node to the final array
 3. Call DFS on each child node 
@@ -52,12 +113,19 @@ class Node:
 			child.depthFirstSearch(array)
 		return array
 
-# return the sum of depths of all nodes in a binary tree
+'''
+Binary Tree (each node has at most 2 child nodes): Node depths
 
-# recursive solution
-# O(n) time: traverse through every node in the tree and perform constant time operation on each node 
-# O(h) space, h = height of binary tree: maximum number of function calls on a call stack at one point is h
-# For balanced tree, approaches O(log n) because eliminating 1/2 of nodes at each subtree 
+Problem: Return the sum of depths of all nodes in a binary tree
+
+Recursive Solution:
+1. Base case: if no child node, return 0 
+2. Pass current node depth + 1 to left and right nodes
+
+O(n) time: traverse through every node in the binary tree and perform constant time operations on each node 
+O(h) space, h = height of binary tree: maxiumum number of function calls on the call stack at one time is h
+For balanced tree, approaches O(log n) because eliminating 1/2 of nodes at each sub tree 
+'''
 def nodeDepths(root, depth=0):
 	if root is None:
 		return 0
@@ -92,23 +160,37 @@ def nodeDepths(root):
 		stack.append({"node": node.right, "depth": depth + 1})
 	return sumOfDepths
 
-# binary search tree traversal in/pre/post
+'''
+Binary Search Tree: Traversal - in/pre/post order
 
-# O(n) time | O(n) space, if not array accum, then O(d), d is depth of tree 
+In order:
+1. get nodes from left to right of the tree 
+2. call inOrder function passing in left child, append value, call inOrder function passing in right child
+
+Pre order: 
+1. root node, left subtree, right subtree
+2. append value, call preOrder passing in left child, call preOrder passing in right child
+
+Post order: 
+1. left subtree, right subtree, then root 
+2. call postOrder with left child, postOrder with right child, append value
+
+O(n) time | O(n) space, if not array accum, then O(d), d is depth of tree 
+'''
+
 def inOrderTraverse(tree, array):
 	if tree is not None:
 		inOrderTraverse(tree.left, array)
 		array.append(tree.value)
 		inOrderTraverse(tree.right, array)
 	return array
-	
+
 def preOrderTraverse(tree, array):
-	if tree is not None: 
+	if tree is not None:
 		array.append(tree.value)
 		preOrderTraverse(tree.left, array)
 		preOrderTraverse(tree.right, array)
 	return array
-
 
 def postOrderTraverse(tree, array):
 	if tree is not None:
