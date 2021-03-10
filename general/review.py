@@ -61,6 +61,54 @@ def binarySearchHelper(array, target, left, right):
 		return binarySearchHelper(array, target, middle + 1, right)
 
 '''
+LinkedList: Reverse a linked list
+
+1. Linked List node has a value and next pointer
+2. currentPointer.next = previousNode
+3. previousNode = currentNode, currentNode = nextNode
+
+O(n) time: traverse each node in the list
+O(1) space: no matter how big the list, always only storing previous, current, next nodes 
+'''
+class LinkedList:
+	def __init__(self, value):
+		self.value = value
+		self.next = None
+		
+def reverseLinkedList(head):
+	previousNode, currentNode = None, head
+	while currentNode is not None:
+		nextNode = currentNode.next
+		currentNode.next = previousNode
+		previousNode = currentNode
+		currentNode = nextNode
+	return previousNode
+
+'''
+Stacks: Balanced Brackets
+Key insight: if there is a closed bracket, the previous bracket
+(the last bracket on the stack) must be a matching open bracket,
+else unbalanced
+'''
+def balancedBrackets(string):
+	openingBrackets = "([{"
+	closingBrackets = ")]}"
+	matchingBrackets = {")":"(", "]": "[", "}": "{"}
+	stack = []
+	
+	for char in string: 
+		if char in openingBrackets:
+			stack.append(char)
+		elif char in closingBrackets:
+			if len(stack) == 0:
+				return False
+			if stack[-1] == matchingBrackets[char]:
+				stack.pop()
+			else:
+				return False
+	return len(stack) == 0
+
+'''
 Graphs: Breadth First Search: 
 1. Add root node to the queue
 2. Pop node from front of the queue, assign to current node
@@ -199,84 +247,58 @@ def postOrderTraverse(tree, array):
 		array.append(tree.value)
 	return array
 
-# two number sum
 
-# hash table method 
-# O(n) time: traversing through each element in the array
-# O(n) space: hash table to track the traversed elements 
-def twoNumberSum(array, targetSum):
-	# x + y = target 
-	# y = target - x
-	# traverse the array looking for y
-	# track traversed elements in hash table
-	nums = {}
-	for num in array:
-		# y = target - x
-		potentialMatch = targetSum - num
-		if potentialMatch in nums:
-			return [potentialMatch, num]
-		else:
-			nums[num] = True
-	return []
+'''
+Quick Sort
 
-# sort first, then use 2 pointers
-# O(n log n ) time: sort is log n time, traverse through n elements  
-# 	n log n + n => n(log n + 1) => O (n log n) time 
-# O(1) space: don't use additional space
+Key ideas: 
+	Sort numbers with respect to a pivot.
 
-# sort the array first, then set 2 pointers
-def twoNumberSum(array, targetSum):
-	# sort the array first
-	array.sort()
-	# initialize the two pointers 
-	left = 0
-	right = len(array) - 1
-	while left < right:
-		# compute potential match
-		potentialMatch = array[left] + array[right]
-		if potentialMatch == targetSum:
-			return [array[left], array[right]]
-		# need a larger number, so move left pointer up
-		elif potentialMatch < targetSum:
-			left += 1
-		# need a smaller number, so move right pointer back
-		elif potentialMatch > targetSum:
-			right -= 1
-	# didn't find the target sum
-	return []
+Key steps:
+	if number at left is larger than pivot and number at 
+	right pointer is smaller than the pivot, swap the two numbers
 
-# Quick Sort 
-# Time complexity 
-# worst case: O(n^2) time: if pivot extemely lopsided subarrays 
-# best case: if pivot cuts to 2 subarrays
-# 	when pivot divides array into half, then make log n calls of quicksort until
-#	reach. Performing O(log n) operations n times => O(n log n)
-# average case: O(n log n)
-# Space complexity: O(log n) because run quicksort recursively on the smaller subarray first
+	if number at left pointer smaller than pivot, move pointer forward
+
+	if number at right pointer is larger than the pivot, move pointer back
+	
+	Swap pivot with the right pointer (bc we chose the first number as pivot)
+
+Steps:
+1. choose a pivot, create left and right pointers 
+2. move numbers < pivot to the left of the pivot 
+3. move numbers > pivot, to the right of the pivot
+4. pivot will be in it's final sorted position
+5. apply on subarray of the left/right of the newly positioned pivot 
+
+Time complexity:
+worst case: O(n^2) time: if pivot extemely lopsided subarrays 
+best case: if pivot cuts to 2 even subarrays
+	when pivot divides array into half, then make log n calls of quicksort until
+	reach. Performing O(log n) operations n times => O(n log n)
+average case: O(n log n)
+Space complexity: O(log n) because run quicksort recursively on the smaller subarray first
+
+'''
+
 def quickSort(array):
 	quickSortHelper(array, 0, len(array) - 1)
 	return array
 
 def quickSortHelper(array, startIdx, endIdx):
-	# base case 
 	if startIdx >= endIdx:
 		return
-	# choose first index to simplify 
 	pivotIdx = startIdx
-	leftIdx = startIdx + 1
-	rightIdx = endIdx 
+	leftIdx = startIdx + 1 
+	rightIdx = endIdx
 	while rightIdx >= leftIdx:
-		# swap, inc/dec right/left pointers
 		if array[leftIdx] > array[pivotIdx] and array[rightIdx] < array[pivotIdx]:
 			swap(leftIdx, rightIdx, array)
 		if array[leftIdx] <= array[pivotIdx]:
 			leftIdx += 1
 		if array[rightIdx] >= array[pivotIdx]:
 			rightIdx -= 1
-
 	swap(pivotIdx, rightIdx, array)
-	# now pivot is in the correct position
-	# recursive call first on the smaller subarray to minimize space complexity
 	leftSubarrayIsSmaller = rightIdx - 1 - startIdx < endIdx - (rightIdx + 1)
 	if leftSubarrayIsSmaller:
 		quickSortHelper(array, startIdx, rightIdx - 1)
@@ -284,6 +306,7 @@ def quickSortHelper(array, startIdx, endIdx):
 	else:
 		quickSortHelper(array, rightIdx + 1, endIdx)
 		quickSortHelper(array, startIdx, rightIdx - 1)
-	
+
 def swap(i, j, array):
 	array[i], array[j] = array[j], array[i]
+    
