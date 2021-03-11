@@ -10,6 +10,9 @@ the number in a hash table if it's not a match
 2. potentialMatch = targetSum - num
 3. Lookup potentialMatch in hash table and return potentialMatch and num if found
 4. If not found, store num in hash table, assign to True and continue
+
+O(n) time: iterate through entire list 
+O(n) space: store n numbers in the hash table
 '''
 
 def twoNumberSum(array, targetSum):
@@ -25,6 +28,9 @@ def twoNumberSum(array, targetSum):
 Binary Search
 
 Return index of target element or -1
+
+Key insight:
+Search for element by repeatedly dividing the array in half and see if element in left/right half 
 
 Recursive Solution:
 Repeatedly divide the array in half and see if the target is in the right 
@@ -89,6 +95,9 @@ Stacks: Balanced Brackets
 Key insight: if there is a closed bracket, the previous bracket
 (the last bracket on the stack) must be a matching open bracket,
 else unbalanced
+
+O(n) time: iterate through characters in a string
+O(n) space: push characters to a stack 
 '''
 def balancedBrackets(string):
 	openingBrackets = "([{"
@@ -309,4 +318,3 @@ def quickSortHelper(array, startIdx, endIdx):
 
 def swap(i, j, array):
 	array[i], array[j] = array[j], array[i]
-    
