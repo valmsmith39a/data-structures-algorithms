@@ -147,7 +147,7 @@ class Node:
 
 '''
 Graphs: Depth First Search
-1. Call DFS on a root node 
+1. Call DFS on a root node - add root node to the final array 
 2. Add node to the final array
 3. Call DFS on each child node 
 4. Repeat 
@@ -318,3 +318,23 @@ def quickSortHelper(array, startIdx, endIdx):
 
 def swap(i, j, array):
 	array[i], array[j] = array[j], array[i]
+
+
+'''
+Merge Sort: 
+
+Solution 1: Create copies of arrays to sort 
+
+Key idea: 
+Keep dividing array until get to 1 element arrays and 
+merge them into sorted arrays until the entire array is sorted.
+
+Time Complexity:
+O(n log n) time: Each level takes O(n) time, and we have O(log n) levels because 
+we continuously divide the arrays in half
+
+O(n log n) space
+
+Solution 2: Sort in place 
+
+'''
