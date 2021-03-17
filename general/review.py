@@ -335,9 +335,16 @@ we continuously divide the arrays in half
 
 O(n log n) space
 
-Solution 2: Sort in place 
+Solution 2: Sort in place
 
 '''
+def mergeSort(array):
+	if len(array) == 1:
+		return array
+	middleIdx = len(array) // 2
+	leftHalf = array[:middleIdx]
+	rightHalf = array[middleIdx:]
+	return mergeSortedArrays(mergeSort(leftHalf), mergeSort(rightHalf))
 
 def mergeSortedArrays(leftHalf, rightHalf):
 	sortedArray = [None] * (len(leftHalf) + len(rightHalf))
@@ -359,3 +366,4 @@ def mergeSortedArrays(leftHalf, rightHalf):
 		j += 1
 		k += 1
 	return sortedArray
+    
