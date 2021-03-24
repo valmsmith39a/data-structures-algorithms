@@ -170,6 +170,19 @@ class Node:
 			child.depthFirstSearch(array)
 		return array
 
+
+'''
+Binary Tree: Max Depth
+    
+
+'''
+def maxDepth():
+
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
 '''
 Binary Tree (each node has at most 2 child nodes): Node depths
 
