@@ -1,4 +1,19 @@
 '''
+
+Arrays: Print all sublists: 
+
+'''
+def sub_lists(l):
+	lists = [[]]
+	for i in range(len(l)):
+		orig = lists[:]
+		new = l[i]
+		for j in range(len(lists)):
+			lists[j] = lists[j] + [new]
+		lists = lists + orig
+	return lists
+
+'''
 Basic Hash Table: Two Number Sum
 
 Problem: Return 2 numbers that equal the target sum or [].
@@ -23,6 +38,7 @@ def twoNumberSum(array, targetSum):
 			return [potentialMatch, num]
 		nums[num] = True
 	return []
+
 
 '''
 Binary Search
@@ -173,7 +189,7 @@ class Node:
 
 '''
 Binary Tree: Max Depth
-    
+
 
 '''
 def maxDepth():
