@@ -1,6 +1,6 @@
 '''
 
-Arrays: Print all sublists: 
+Arrays: Print all sublists
 
 '''
 def sub_lists(l):
@@ -23,7 +23,8 @@ the number in a hash table if it's not a match
 
 1. Create a basic hash table 
 2. potentialMatch = targetSum - num
-3. Lookup potentialMatch in hash table and return potentialMatch and num if found
+3. Lookup potentialMatch in hash table and return potentialMatch 
+and num if found
 4. If not found, store num in hash table, assign to True and continue
 
 O(n) time: iterate through entire list 
@@ -38,7 +39,6 @@ def twoNumberSum(array, targetSum):
 			return [potentialMatch, num]
 		nums[num] = True
 	return []
-
 
 '''
 Binary Search
@@ -66,7 +66,6 @@ Time/Space Complexity:
 O (log n) time: eliminate 1/2 of elements in each iteration
 O (log 1) space: don't store anything
 '''
-
 def binarySearch(array, target):
 	return binarySearchHelper(array, target, 0, len(array) - 1)
 
@@ -189,16 +188,30 @@ class Node:
 
 '''
 Binary Tree: Max Depth
-
-
 '''
-def maxDepth():
-
 class BinaryTree:
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
+
+def maxDepth(node):
+    if node is None:
+        return 0
+    else:
+        lDepth = maxDepth(node.left)
+        rDepth = maxDepth(node.right)
+
+        if lDepth > rDepth:
+            return lDepth + 1
+        else: 
+            return rDepth + 1
+
+root = BinaryTree(1)
+root.left = BinaryTree(2)
+root.right = BinaryTree(3)
+root.left.left = BinaryTree(4)
+root.left.right = BinaryTree(5)
 '''
 Binary Tree (each node has at most 2 child nodes): Node depths
 
