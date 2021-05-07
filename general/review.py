@@ -1,7 +1,13 @@
 '''
 
-Arrays: Print all sublists
+1. Arrays: Print all sublists
 
+Add each number to previous element (including empty list,
+which will provide the [] case and [j] cases (individual numbers as sublists)
+
+O(n * 2^n) time (exponential time): 
+    n: iterate through every element in list
+    2^n: in 2nd for loop, the list grows
 '''
 def sub_lists(l):
 	lists = [[]]
@@ -14,7 +20,7 @@ def sub_lists(l):
 	return lists
 
 '''
-Basic Hash Table: Two Number Sum
+2. Basic Hash Table: Two Number Sum
 
 Problem: Return 2 numbers that equal the target sum or [].
 
@@ -41,7 +47,7 @@ def twoNumberSum(array, targetSum):
 	return []
 
 '''
-Binary Search
+3. Binary Search
 
 Return index of target element or -1
 
@@ -82,7 +88,7 @@ def binarySearchHelper(array, target, left, right):
 		return binarySearchHelper(array, target, middle + 1, right)
 
 '''
-LinkedList: Reverse a linked list
+4. LinkedList: Reverse a linked list
 
 1. Linked List node has a value and next pointer
 2. currentPointer.next = previousNode
@@ -106,7 +112,7 @@ def reverseLinkedList(head):
 	return previousNode
 
 '''
-Stacks: Balanced Brackets
+5. Stacks: Balanced Brackets
 Key insight: if there is a closed bracket, the previous bracket
 (the last bracket on the stack) must be a matching open bracket,
 else unbalanced
@@ -133,7 +139,7 @@ def balancedBrackets(string):
 	return len(stack) == 0
 
 '''
-Graphs: Breadth First Search: 
+6. Graphs: Breadth First Search: 
 1. Add root node to the queue
 2. Pop node from front of the queue, assign to current node
 3. Add current node name to final list of nodes
@@ -161,7 +167,7 @@ class Node:
 		return array
 
 '''
-Graphs: Depth First Search
+7. Graphs: Depth First Search
 1. Call DFS on a root node - add root node to the final array 
 2. Add node to the final array
 3. Call DFS on each child node 
@@ -187,7 +193,7 @@ class Node:
 
 
 '''
-Binary Tree: Max Depth
+8. Binary Tree: Max Depth
 '''
 class BinaryTree:
     def __init__(self, value):
@@ -213,7 +219,7 @@ root.right = BinaryTree(3)
 root.left.left = BinaryTree(4)
 root.left.right = BinaryTree(5)
 '''
-Binary Tree (each node has at most 2 child nodes): Node depths
+9. Binary Tree (each node has at most 2 child nodes): Node depths
 
 Problem: Return the sum of depths of all nodes in a binary tree
 
@@ -260,7 +266,7 @@ def nodeDepths(root):
 	return sumOfDepths
 
 '''
-Binary Search Tree: Traversal - in/pre/post order
+10. Binary Search Tree: Traversal - in/pre/post order
 
 In order:
 1. get nodes from left to right of the tree 
@@ -300,7 +306,7 @@ def postOrderTraverse(tree, array):
 
 
 '''
-Quick Sort
+11. Quick Sort
 
 Key ideas: 
 	Sort numbers with respect to a pivot.
@@ -363,7 +369,7 @@ def swap(i, j, array):
 
 
 '''
-Merge Sort: 
+12. Merge Sort: 
 
 Solution 1: Create copies of arrays to sort 
 

@@ -1,0 +1,3 @@
+1. Time complexities and examples: 
+https://medium.com/@amejiarosario/8-time-complexity-examples-that-every-programmer-should-know-171bd21e5ba
+

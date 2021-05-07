@@ -954,5 +954,16 @@ def quickSortHelper(array, startIdx, endIdx):
 def swap(i, j, array):
 	array[i], array[j] = array[j], array[i]
 
+'''
+Min Heap
+	Every value is smaller than it's children's values
+	Child 1: 2i + 1 
+	Child 2: 2i + 2  
 	
+	Parent: floor(i - 1 / 2) 
+'''
+# Min Heap
+# 	Every value is smaller than it's childrens' values 
+	
+#Djikstra's 
 	
