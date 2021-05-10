@@ -70,7 +70,7 @@ or left half of the array
 Time/Space Complexity: 
 
 O (log n) time: eliminate 1/2 of elements in each iteration
-O (log 1) space: don't store anything
+O (1) space: don't store anything
 '''
 def binarySearch(array, target):
 	return binarySearchHelper(array, target, 0, len(array) - 1)
@@ -91,8 +91,10 @@ def binarySearchHelper(array, target, left, right):
 4. LinkedList: Reverse a linked list
 
 1. Linked List node has a value and next pointer
-2. currentPointer.next = previousNode
-3. previousNode = currentNode, currentNode = nextNode
+2. currentNode.next = previousNode
+3. Traverse the linked list: 
+    previousNode = currentNode, 
+    currentNode = nextNode
 
 O(n) time: traverse each node in the list
 O(1) space: no matter how big the list, always only storing previous, current, next nodes 
@@ -113,9 +115,16 @@ def reverseLinkedList(head):
 
 '''
 5. Stacks: Balanced Brackets
-Key insight: if there is a closed bracket, the previous bracket
-(the last bracket on the stack) must be a matching open bracket,
-else unbalanced
+
+Stack: Last In First Out 
+
+Key insights: 
+    1. if there is a closed bracket, the previous bracket
+    (the last bracket on the stack) must be a matching open bracket,
+    else unbalanced. 
+
+    2. if the string has balanced brackets, then after iterating through the string
+    the stack should be empty
 
 O(n) time: iterate through characters in a string
 O(n) space: push characters to a stack 
