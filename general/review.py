@@ -1,4 +1,4 @@
-'''
+"""
 
 1. Arrays: Print all sublists
 
@@ -8,21 +8,25 @@ which will provide the [] case and [j] cases (individual numbers as sublists)
 O(n * 2^n) time (exponential time): 
     n: iterate through every element in list
     2^n: in 2nd for loop, the list grows
-'''
+"""
 
 
-def sub_lists(l):
+def sublists(l):
     lists = [[]]
     for i in range(len(l)):
-        orig = lists[:]
-        new = l[i]
+        prev_lists = lists[:]
+        new_list = l[i]
         for j in range(len(lists)):
-            lists[j] = lists[j] + [new]
-        lists = lists + orig
+            lists[j] = lists[j] + [new_list]
+        lists = lists + prev_lists
     return lists
 
 
-'''
+# test_list = [1, 2, 3]
+# print(sublists(test_list))
+# [[1, 2, 3], [2, 3], [1, 3], [3], [1, 2], [2], [1], []]
+
+"""
 2. Basic Hash Table: Two Number Sum
 
 Problem: Return 2 numbers that equal the target sum or [].
@@ -38,7 +42,7 @@ and num if found
 
 O(n) time: iterate through entire list 
 O(n) space: store n numbers in the hash table
-'''
+"""
 
 
 def twoNumberSum(array, targetSum):
@@ -51,7 +55,7 @@ def twoNumberSum(array, targetSum):
     return []
 
 
-'''
+"""
 3. Binary Search
 
 Return index of target element or -1
@@ -76,7 +80,7 @@ Time/Space Complexity:
 
 O (log n) time: eliminate 1/2 of elements in each iteration
 O (1) space: don't store anything
-'''
+"""
 
 
 def binarySearch(array, target):
@@ -96,7 +100,7 @@ def binarySearchHelper(array, target, left, right):
         return binarySearchHelper(array, target, middle + 1, right)
 
 
-'''
+"""
 4. LinkedList: Reverse a linked list
 
 1. Linked List node has a value and next pointer
@@ -107,7 +111,7 @@ def binarySearchHelper(array, target, left, right):
 
 O(n) time: traverse each node in the list
 O(1) space: no matter how big the list, always only storing previous, current, next nodes 
-'''
+"""
 
 
 class LinkedList:
@@ -126,7 +130,7 @@ def reverseLinkedList(head):
     return previousNode
 
 
-'''
+"""
 5. Stacks: Balanced Brackets
 
 Stack: Last In First Out 
@@ -141,7 +145,7 @@ Key insights:
 
 O(n) time: iterate through characters in a string
 O(n) space: push characters to a stack 
-'''
+"""
 
 
 def balancedBrackets(string):
@@ -163,7 +167,7 @@ def balancedBrackets(string):
     return len(stack) == 0
 
 
-'''
+"""
 6. Graphs: Breadth First Search: 
 1. Add root node to the queue
 2. Pop node from front of the queue, assign to current node
@@ -176,7 +180,7 @@ O(V + E) time:
 	O(E), E = edge: add child nodes to queue
 O(V) space: in worst case, queue of child nodes hold V - 1 nodes
 	if all children nodes coonnected to 1 parent, then V - 1 nodes in queue
-'''
+"""
 
 
 class Node:
@@ -194,7 +198,7 @@ class Node:
         return array
 
 
-'''
+"""
 7. Graphs: Depth First Search
 1. Call DFS on a root node - add root node to the final array 
 2. Add node to the final array
@@ -207,7 +211,7 @@ traverse all the child nodes (edges)
 O(V) space: in the worst case, we are adding V frames to the call stack, 
 if each node only has one child node and we have a long string of nodes. 
 A - B - C - D - E ... 
-'''
+"""
 
 
 class Node:
@@ -222,7 +226,7 @@ class Node:
         return array
 
 
-'''
+"""
 8. Binary Tree: Max Depth
 
 Max Depth: Number of nodes from the root down to the farthest leaf node 
@@ -235,7 +239,7 @@ Max Depth is 3
 Depth of node: number of edges from the node to the root node 
 Height of a node: number of edge from the node to the deepest leaf (farthest leaf node)
 
-'''
+"""
 
 
 class BinaryTree:
@@ -263,7 +267,7 @@ root.left = BinaryTree(2)
 root.right = BinaryTree(3)
 root.left.left = BinaryTree(4)
 root.left.right = BinaryTree(5)
-'''
+"""
 9. Binary Tree (each node has at most 2 child nodes): Node depths
 
 Problem: Return the sum of depths of all nodes in a binary tree
@@ -275,7 +279,7 @@ Recursive Solution:
 O(n) time: traverse through every node in the binary tree and perform constant time operations on each node 
 O(h) space, h = height of binary tree: maxiumum number of function calls on the call stack at one time is h
 For balanced tree, approaches O(log n) because eliminating 1/2 of nodes at each sub tree 
-'''
+"""
 
 
 def nodeDepths(root, depth=0):
@@ -289,6 +293,7 @@ class BinaryTree:
         self.value = value
         self.left = None
         self.right = None
+
 
 # iterative solution
 # O(n) time: traverse each node in tree
@@ -316,7 +321,7 @@ def nodeDepths(root):
     return sumOfDepths
 
 
-'''
+"""
 10. Binary Search Tree: Traversal - in/pre/post order
 
 In order:
@@ -332,7 +337,7 @@ Post order:
 2. call postOrder with left child, postOrder with right child, append value
 
 O(n) time | O(n) space, if not array accum, then O(d), d is depth of tree 
-'''
+"""
 
 
 def inOrderTraverse(tree, array):
@@ -359,7 +364,7 @@ def postOrderTraverse(tree, array):
     return array
 
 
-'''
+"""
 11. Quick Sort
 
 Key ideas: 
@@ -390,7 +395,7 @@ best case: if pivot cuts to 2 even subarrays
 average case: O(n log n)
 Space complexity: O(log n) because run quicksort recursively on the smaller subarray first
 
-'''
+"""
 
 
 def quickSort(array):
@@ -425,7 +430,7 @@ def swap(i, j, array):
     array[i], array[j] = array[j], array[i]
 
 
-'''
+"""
 12. Merge Sort: 
 
 Solution 1: Create copies of arrays to sort 
@@ -442,7 +447,7 @@ O(n log n) space
 
 Solution 2: Sort in place
 
-'''
+"""
 
 
 def mergeSort(array):
