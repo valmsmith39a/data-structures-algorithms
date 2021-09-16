@@ -50,10 +50,16 @@ def twoNumberSum(array, targetSum):
     for num in array:
         potentialMatch = targetSum - num
         if potentialMatch in nums:
-            return [potentialMatch, num]
+            return [num, potentialMatch]
         nums[num] = True
     return []
 
+
+# test = [1, 2, 5, 6, 8, 20, 3]
+# print(twoNumberSum(test, 23))
+# print(twoNumberSum(test, 59))
+# [3, 20]
+# []
 
 """
 3. Binary Search
@@ -80,6 +86,7 @@ Time/Space Complexity:
 
 O (log n) time: eliminate 1/2 of elements in each iteration
 O (1) space: don't store anything
+
 """
 
 
@@ -98,6 +105,11 @@ def binarySearchHelper(array, target, left, right):
         return binarySearchHelper(array, target, left, middle - 1)
     else:
         return binarySearchHelper(array, target, middle + 1, right)
+
+
+# array = [2, 4, 6, 7, 8, 9, 12]
+# target = 6
+# print(binarySearch(array, target))
 
 
 """
@@ -120,8 +132,9 @@ class LinkedList:
         self.next = None
 
 
-def reverseLinkedList(head):
-    previousNode, currentNode = None, head
+def reverseLinkedList(node):
+    previousNode, currentNode = None, node
+
     while currentNode is not None:
         nextNode = currentNode.next
         currentNode.next = previousNode
@@ -129,6 +142,24 @@ def reverseLinkedList(head):
         currentNode = nextNode
     return previousNode
 
+
+# node = LinkedList(1)
+# node.next = LinkedList(2)
+# node.next.next = LinkedList(3)
+# currentNode = node
+
+
+# def printNodes(node):
+#     while node is not None:
+#         print(node.value)
+#         node = node.next
+
+
+# printNodes(currentNode)
+
+# currentNode = reverseLinkedList(node)
+
+# printNodes(currentNode)
 
 """
 5. Stacks: Balanced Brackets
