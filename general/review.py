@@ -221,12 +221,27 @@ class Node:
 
     def breadthFirstSearch(self, array):
         queue = [self]
+
         while len(queue) > 0:
             current = queue.pop(0)
             array.append(current.name)
             for child in current.children:
                 queue.append(child)
         return array
+
+
+# n1 = Node(1)
+# n2 = Node(2)
+# n3 = Node(3)
+# n4 = Node(4)
+# n5 = Node(5)
+
+# n1.children = [n2, n3]
+# n2.children = [n4, n5]
+
+# array = []
+
+# print(n1.breadthFirstSearch(array))
 
 
 """
@@ -257,6 +272,23 @@ class Node:
         return array
 
 
+# n1 = Node(1)
+# n2 = Node(2)
+# n3 = Node(3)
+# n4 = Node(4)
+# n5 = Node(5)
+# n6 = Node(6)
+# n7 = Node(7)
+
+# n1.children = [n2, n3]
+# n2.children = [n4, n5]
+# n4.children = [n6]
+# n5.children = [n7]
+
+# array = []
+
+# print(n1.depthFirstSearch(array))
+
 """
 8. Binary Tree: Max Depth
 
@@ -280,24 +312,31 @@ class BinaryTree:
         self.right = None
 
 
-def maxDepth(node):
+def maxDepths(node):
     if node is None:
         return 0
-    else:
-        lDepth = maxDepth(node.left)
-        rDepth = maxDepth(node.right)
+    leftDepth = maxDepths(node.left)
+    rightDepth = maxDepths(node.right)
 
-        if lDepth > rDepth:
-            return lDepth + 1
-        else:
-            return rDepth + 1
+    if leftDepth > rightDepth:
+        return leftDepth + 1
+    return rightDepth + 1
 
 
-root = BinaryTree(1)
-root.left = BinaryTree(2)
-root.right = BinaryTree(3)
-root.left.left = BinaryTree(4)
-root.left.right = BinaryTree(5)
+# n0 = BinaryTree(0)
+# n1 = BinaryTree(1)
+# n2 = BinaryTree(2)
+# n3 = BinaryTree(3)
+# n4 = BinaryTree(4)
+
+# n0.left = n1
+# n0.right = n2
+# n1.left = n3
+# n1.right = n4
+# # 3
+
+# print(maxDepths(n0))
+
 """
 9. Binary Tree (each node has at most 2 child nodes): Node depths
 
@@ -313,18 +352,40 @@ For balanced tree, approaches O(log n) because eliminating 1/2 of nodes at each 
 """
 
 
-def nodeDepths(root, depth=0):
-    if root is None:
-        return 0
-    return depth + nodeDepths(root.left, depth + 1) + nodeDepths(root.right, depth + 1)
-
-
 class BinaryTree:
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
 
+
+def nodeDepths(root, depth=0):
+    if root is None:
+        return 0
+    return depth + nodeDepths(root.left, depth + 1) + nodeDepths(root.right, depth + 1)
+
+
+# n0 = BinaryTree(0)
+# n1 = BinaryTree(1)
+# n2 = BinaryTree(2)
+# n3 = BinaryTree(3)
+# n4 = BinaryTree(4)
+# n5 = BinaryTree(5)
+# n6 = BinaryTree(6)
+# n7 = BinaryTree(7)
+# n8 = BinaryTree(8)
+
+# n0.left = n1
+# n0.right = n2
+# n1.left = n3
+# n1.right = n4
+# n2.left = n5
+# n2.right = n6
+# n3.left = n7
+# n3.right = n8
+# # 16
+# depth = 0
+# print(nodeDepths(n0, depth))
 
 # iterative solution
 # O(n) time: traverse each node in tree
