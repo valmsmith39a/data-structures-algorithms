@@ -461,16 +461,15 @@ def postOrderTraverse(tree, array):
 
 Key ideas: 
 	Sort numbers with respect to a pivot.
+    Move numbers <= pivot to the left of the pivot.
+    Move numbers > pivot to the right of the pivot
 
 Key steps:
-	if number at left is larger than pivot and number at 
-	right pointer is smaller than the pivot, swap the two numbers
-
-	if number at left pointer smaller than pivot, move pointer forward
-
-	if number at right pointer is larger than the pivot, move pointer back
-	
-	Swap pivot with the right pointer (bc we chose the first number as pivot)
+    With each iteration, ask: is number at left pointer larger than the pivot and the numer at 
+    the right pointer smaller than the pivot? If it is, swap the numbers at the left pointer and right pointer.
+    if number at left pivot is smaller than pivot, move pointer forward
+    if number at right pointer is larger than pivot, move pointer back 
+    When left pointer index > right pointer index, swap number at pivot index with number at right pointer index.
 
 Steps:
 1. choose a pivot, create left and right pointers 
@@ -522,8 +521,14 @@ def swap(i, j, array):
     array[i], array[j] = array[j], array[i]
 
 
+# array = [8, 5, 2, 9, 5, 6, 3]
+# print(quickSort(array))
+# [2, 3, 5, 5, 6, 8, 9]
+
 """
 12. Merge Sort: 
+
+A divide and conquere algorithm
 
 Solution 1: Create copies of arrays to sort 
 
@@ -571,3 +576,7 @@ def mergeSortedArrays(leftHalf, rightHalf):
         j += 1
         k += 1
     return sortedArray
+
+
+array = [2, 3, 5, 5, 6, 8, 9]
+print(mergeSort(array))
