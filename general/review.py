@@ -1,4 +1,14 @@
 """
+Key concepts:
+
+1. logarithm
+    log base 2 n = y 
+    2^y = n 
+    as n doubles (2, 4, 8, 16, 32)
+    n only increases by 1 (1, 2, 3, 4, 5)
+"""
+
+"""
 
 1. Arrays: Print all sublists
 
@@ -578,8 +588,8 @@ def mergeSortedArrays(leftHalf, rightHalf):
     return sortedArray
 
 
-array = [2, 3, 5, 5, 6, 8, 9]
-print(mergeSort(array))
+# array = [2, 3, 5, 5, 6, 8, 9]
+# print(mergeSort(array))
 
 
 """
@@ -606,3 +616,72 @@ def getLongestPalindromeFrom(string, leftIdx, rightIdx):
         leftIdx -= 1
         rightIdx += 1
     return [leftIdx + 1, rightIdx]
+
+
+"""
+
+14. Invert Binary Tree
+
+                1
+        2               3
+    4       5       6       7
+
+
+                1
+        3               2
+    5       4       7       6
+
+O(n) time: traverse all the nodes
+O(d) or O(log n) space: d is depth (height) of the tree O(d) = O(log n) 
+"""
+
+
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def breadthFirstSearch(self, array):
+        queue = [self]
+        while len(queue) > 0:
+            current = queue.pop(0)
+            if current is None:
+                continue
+            array.append(current.value)
+            queue.append(current.left)
+            queue.append(current.right)
+        return array
+
+
+def invertBinaryTree(tree):
+    if tree is None:
+        return
+    swapLeftAndRight(tree)
+    invertBinaryTree(tree.left)
+    invertBinaryTree(tree.right)
+
+
+def swapLeftAndRight(tree):
+    tree.left, tree.right = tree.right, tree.left
+
+
+n1 = BinaryTree(1)
+n2 = BinaryTree(2)
+n3 = BinaryTree(3)
+n4 = BinaryTree(4)
+n5 = BinaryTree(5)
+n6 = BinaryTree(6)
+n7 = BinaryTree(7)
+
+n1.left = n2
+n1.right = n3
+n2.left = n4
+n2.right = n5
+n3.left = n6
+n3.right = n7
+array1 = []
+print(n1.breadthFirstSearch(array1))
+invertBinaryTree(n1)
+array2 = []
+print(n1.breadthFirstSearch(array2))
