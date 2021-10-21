@@ -685,3 +685,31 @@ print(n1.breadthFirstSearch(array1))
 invertBinaryTree(n1)
 array2 = []
 print(n1.breadthFirstSearch(array2))
+
+"""
+15. Number of Ways to Traverse a Graph
+
+Problem: Given width and height of a rectangular graph, find the number of ways to traverse graph from top left corner to 
+bottom right corner
+
+Dynamic Programming
+    Key idea: use counts at left and top squares adjacent to current square
+
+For each width index, traverse the height of the graph. 
+
+O(n * m) time: col x row
+O(n * m) space: col x row
+"""
+
+
+def numberOfWaysToTraverseGraph(width, height):
+    numberOfWays = [[0 for _ in range(width + 1)] for _ in range(height + 1)]
+    for widthIdx in range(1, width + 1):
+        for heightIdx in range(1, height + 1):
+            if widthIdx == 1 or heightIdx == 1:
+                numberOfWays[heightIdx][widthIdx] = 1
+            else:
+                waysLeft = numberOfWays[heightIdx][widthIdx - 1]
+                waysUp = numberOfWays[heightIdx - 1][widthIdx]
+                numberOfWays[heightIdx][widthIdx] = waysLeft + waysUp
+    return numberOfWays[height][width]
