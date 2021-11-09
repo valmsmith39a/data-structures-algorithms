@@ -713,3 +713,48 @@ def numberOfWaysToTraverseGraph(width, height):
                 waysUp = numberOfWays[heightIdx - 1][widthIdx]
                 numberOfWays[heightIdx][widthIdx] = waysLeft + waysUp
     return numberOfWays[height][width]
+
+
+"""
+16. Cycle in Graph
+
+Problem: Given a list of edges, write a function to find if the graph contains a cycle
+
+O(v + e) time
+O(v) space
+
+"""
+
+
+def cycleInGraph(edges):
+    numberOfNodes = len(edges)
+    visited = [False for _ in range(numberOfNodes)]
+    currentlyInStack = [False for _ in range(numberOfNodes)]
+
+    for node in range(numberOfNodes):
+        if visited[node]:
+            continue
+
+        containsCycle = isNodeInCycle(node, edges, visited, currentlyInStack)
+        if containsCycle:
+            return True
+
+    return False
+
+
+def isNodeInCycle(node, edges, visited, currentlyInStack):
+    visited[node] = True
+    currentlyInStack[node] = True
+
+    neighbors = edges[node]
+
+    for neighbor in neighbors:
+        if not visited[neighbor]:
+            containsCycle = isNodeInCycle(neighbor, edges, visited, currentlyInStack)
+            if containsCycle:
+                return True
+
+        elif currentlyInStack[neighbor]:
+            return True
+
+    currentlyInStack[node] = False
