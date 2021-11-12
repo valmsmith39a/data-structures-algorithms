@@ -619,8 +619,9 @@ def getLongestPalindromeFrom(string, leftIdx, rightIdx):
 
 
 """
-
 14. Invert Binary Tree
+
+For all non-leaf nodes, swap the left and right children nodes
 
                 1
         2               3
@@ -715,10 +716,14 @@ def numberOfWaysToTraverseGraph(width, height):
     return numberOfWays[height][width]
 
 
+print(numberOfWaysToTraverseGraph(3, 3))
+
 """
 16. Cycle in Graph
 
 Problem: Given a list of edges, write a function to find if the graph contains a cycle
+
+Key Concept: If visited and currently in stack (can still connect to a next node), then is a cycle
 
 O(v + e) time
 O(v) space
