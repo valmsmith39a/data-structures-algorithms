@@ -300,18 +300,20 @@ class Node:
 # print(n1.depthFirstSearch(array))
 
 """
-8. Binary Tree: Max Depth
+8. Binary Tree: Depth or Height of Tree
 
-Max Depth: Number of nodes from the root down to the farthest leaf node 
+Height of binary tree: Total number of nodes from root now to leaf node (including root and leaf nodes)
+       
+        1
+
+Height of tree with 1 node: 1 
+
         1
     2       3
 4       5
 
-Max Depth is 3 
 
-Depth of node: number of edges from the node to the root node 
-Height of a node: number of edge from the node to the deepest leaf (farthest leaf node)
-
+Height: 3
 """
 
 
@@ -322,30 +324,25 @@ class BinaryTree:
         self.right = None
 
 
-def maxDepths(node):
+def height(node):
     if node is None:
         return 0
-    leftDepth = maxDepths(node.left)
-    rightDepth = maxDepths(node.right)
-
-    if leftDepth > rightDepth:
-        return leftDepth + 1
-    return rightDepth + 1
+    return 1 + max(height(node.left), height(node.right))
 
 
-# n0 = BinaryTree(0)
-# n1 = BinaryTree(1)
-# n2 = BinaryTree(2)
-# n3 = BinaryTree(3)
-# n4 = BinaryTree(4)
+n0 = BinaryTree(0)
+n1 = BinaryTree(1)
+n2 = BinaryTree(2)
+n3 = BinaryTree(3)
+n4 = BinaryTree(4)
 
-# n0.left = n1
-# n0.right = n2
-# n1.left = n3
-# n1.right = n4
-# # 3
+n0.left = n1
+n0.right = n2
+n1.left = n3
+n1.right = n4
 
-# print(maxDepths(n0))
+# Solution: 3
+print("height of tree is: ", height(n0))
 
 """
 9. Binary Tree (each node has at most 2 child nodes): Node depths
