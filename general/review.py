@@ -479,20 +479,35 @@ Key steps:
     When left pointer index > right pointer index, swap number at pivot index with number at right pointer index.
 
 Steps:
-1. choose a pivot, create left and right pointers 
-2. move numbers < pivot to the left of the pivot 
-3. move numbers > pivot, to the right of the pivot
-4. pivot will be in it's final sorted position
-5. apply on subarray of the left/right of the newly positioned pivot 
+    1. choose a pivot, create left and right pointers 
+    2. move numbers < pivot to the left of the pivot 
+    3. move numbers > pivot, to the right of the pivot
+    4. pivot will be in it's final sorted position
+    5. apply on subarray of the left/right of the newly positioned pivot 
 
-Time complexity:
-worst case: O(n^2) time: if pivot extemely lopsided subarrays 
-best case: if pivot cuts to 2 even subarrays
-	when pivot divides array into half, then make log n calls of quicksort until
-	reach. Performing O(log n) operations n times => O(n log n)
-average case: O(n log n)
-Space complexity: O(log n) because run quicksort recursively on the smaller subarray first
+Example - after completion of while loop:
+    [4, 1, 2, 3, 5, 6, 7, 8]
+    pivotIdx = 0
+    rightIdx = 3
+    leftIdx = 4
 
+    pivotNumber = 4
+    rightIdxNumber = 3
+    leftIdxNumber = 5
+
+    After iterating through the while loop, the value at the rightIdx is 
+    the last number that is smaller than the pivot value.
+
+    Since we know that the value at the rightIdx is smaller than the 
+    pivot value, we can swap those 2 values. 
+
+    [3, 1, 2, 4, 5, 6, 7, 8]
+
+    Time complexity:
+    worst case: O(n^2) time: if pivot extemely lopsided subarrays 
+    best case: if pivot cuts to 2 even subarrays when pivot divides array into half, then make log n calls of quicksort until reach. Performing O(log n) operations n times => O(n log n)
+    average case: O(n log n)
+    Space complexity: O(log n) because run quicksort recursively on the smaller subarray first
 """
 
 
@@ -514,8 +529,17 @@ def quickSortHelper(array, startIdx, endIdx):
             leftIdx += 1
         if array[rightIdx] >= array[pivotIdx]:
             rightIdx -= 1
+    # rightIdx and leftIdx have crossed
+    # number at rightIdx is the last number that is smaller that the pivot number
     swap(pivotIdx, rightIdx, array)
+
+    # at this point, the pivot number is in the correct position relative to all the other
+    # numbers in the array
+    # rightIdx at this point is the index of the newly positioned pivot number
+
+    # start with the smaller subarray
     leftSubarrayIsSmaller = rightIdx - 1 - startIdx < endIdx - (rightIdx + 1)
+
     if leftSubarrayIsSmaller:
         quickSortHelper(array, startIdx, rightIdx - 1)
         quickSortHelper(array, rightIdx + 1, endIdx)
