@@ -423,17 +423,24 @@ def nodeDepths(root):
 """
 10. Binary Search Tree: Traversal - in/pre/post order
 
-In order:
-1. get nodes from left to right of the tree 
-2. call inOrder function passing in left child, append value, call inOrder function passing in right child
 
-Pre order: 
-1. root node, left subtree, right subtree
-2. append value, call preOrder passing in left child, call preOrder passing in right child
+Inorder traversal: 
 
-Post order: 
-1. left subtree, right subtree, then root 
-2. call postOrder with left child, postOrder with right child, append value
+                              1
+			    2				            3
+		4		       5		    6		        7
+8	        9 	10 	        11 12        13 14             15
+
+Start from the bottom of the tree.
+
+Inorder Traversal: Left subtree (can be single node), Root, Right subtree
+8, 4, 9, 2, 10, 5, 11, 1, 12, 6, 13, 3, 14, 7, 15
+
+Preorder Traversal: Root, Left subtree, Right subtree
+1, 2, 4, 8, 9, 5, 10, 11, 3, 6, 12, 13, 7, 14, 15
+
+Postorder Traversal: Left subtree, Right subtree, Root
+8, 9, 4, 10, 11, 5, 2, 12, 13, 6, 14, 15, 7, 3, 1
 
 O(n) time | O(n) space, if not array accum, then O(d), d is depth of tree 
 """
