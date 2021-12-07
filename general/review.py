@@ -722,6 +722,9 @@ Problem: Given width and height of a rectangular graph, find the number of ways 
 bottom right corner
 
 Dynamic Programming
+    Dynamic programming: Break a problem down into subproblems. 
+                         Solve the subproblems and store the solutions (memoization) to be used to solve the overall problem.
+
     Key idea: use counts at left and top squares adjacent to current square
 
 For each width index, traverse the height of the graph. 

@@ -86,41 +86,58 @@
 # print(array)
 
 
-def mergeSort(array):
-    if len(array) == 1:
-        return array
-    middleIdx = len(array) // 2  # floor
-    leftHalf = array[:middleIdx]
-    rightHalf = array[middleIdx:]
-    return mergeSortedArray(mergeSort(leftHalf), mergeSort(rightHalf))
+# def mergeSort(array):
+#     if len(array) == 1:
+#         return array
+#     middleIdx = len(array) // 2  # floor
+#     leftHalf = array[:middleIdx]
+#     rightHalf = array[middleIdx:]
+#     return mergeSortedArray(mergeSort(leftHalf), mergeSort(rightHalf))
 
 
-def mergeSortedArray(leftHalf, rightHalf):
-    sortedArray = [None] * (len(leftHalf) + len(rightHalf))
-    i = j = k = 0
+# def mergeSortedArray(leftHalf, rightHalf):
+#     sortedArray = [None] * (len(leftHalf) + len(rightHalf))
+#     i = j = k = 0
 
-    while i < len(leftHalf) and j < len(rightHalf):
-        if leftHalf[i] < rightHalf[j]:
-            sortedArray[k] = leftHalf[i]
-            i += 1
-        else:
-            sortedArray[k] = rightHalf[j]
-            j += 1
-        k += 1
+#     while i < len(leftHalf) and j < len(rightHalf):
+#         if leftHalf[i] < rightHalf[j]:
+#             sortedArray[k] = leftHalf[i]
+#             i += 1
+#         else:
+#             sortedArray[k] = rightHalf[j]
+#             j += 1
+#         k += 1
 
-    while i < len(leftHalf):
-        sortedArray[k] = leftHalf[i]
-        i += 1
-        k += 1
+#     while i < len(leftHalf):
+#         sortedArray[k] = leftHalf[i]
+#         i += 1
+#         k += 1
 
-    while j < len(rightHalf):
-        sortedArray[k] = rightHalf[j]
-        j += 1
-        k += 1
+#     while j < len(rightHalf):
+#         sortedArray[k] = rightHalf[j]
+#         j += 1
+#         k += 1
 
-    return sortedArray
+#     return sortedArray
 
 
-array = [8, 5, 2, 9, 5, 6, 3]
-print("initial array ", array)
-print("merge sort result", mergeSort(array))
+# array = [8, 5, 2, 9, 5, 6, 3]
+# print("initial array ", array)
+# print("merge sort result", mergeSort(array))
+
+
+def numberOfWaysToTraverseGraph(width, height):
+    numberOfWays = [[0 for _ in range(width + 1)] for _ in range(height + 1)]
+    for widthIdx in range(1, width + 1):
+        for heightIdx in range(1, height + 1):
+            if widthIdx == 1 or heightIdx == 1:
+                numberOfWays[heightIdx][widthIdx] = 1
+            else:
+                waysLeft = numberOfWays[heightIdx][widthIdx - 1]
+                waysUp = numberOfWays[heightIdx - 1][widthIdx]
+                numberOfWays[heightIdx][widthIdx] = waysLeft + waysUp
+    return numberOfWays[height][width]
+
+
+print(numberOfWaysToTraverseGraph(3, 3))
+# 6
