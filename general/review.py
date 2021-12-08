@@ -756,9 +756,19 @@ Problem: Given a list of edges, write a function to find if the graph contains a
 
 Key Concept: If visited and currently in stack (can still connect to a next node), then is a cycle
 
-O(v + e) time
-O(v) space
+Notes: 
+    If visited, don’t have to visit again. 
+	    Possible to visit a node again, but it’s not a cycle. 
+	    [[1, 2], [], [3, 4]]: visited node 1 as a neighbor, visit node 1 again but it’s not a cycle.
 
+    If node is finished (no more neighbors to visit), pop the node off the recursive stack.
+
+    If visited and on recursive stack, then there is a cycle.
+
+    Run depth first search on each node in the graph to see if find a cycle
+
+O(vertices + edges) time: Need to traverse each node (v) and the neighbors connected to each node (e)
+O(v) space
 """
 
 
@@ -771,8 +781,8 @@ def cycleInGraph(edges):
         if visited[node]:
             continue
 
-        containsCycle = isNodeInCycle(node, edges, visited, currentlyInStack)
-        if containsCycle:
+        isNodeContainedInCycle = isNodeInCycle(node, edges, visited, currentlyInStack)
+        if isNodeContainedInCycle:
             return True
 
     return False
@@ -786,11 +796,22 @@ def isNodeInCycle(node, edges, visited, currentlyInStack):
 
     for neighbor in neighbors:
         if not visited[neighbor]:
-            containsCycle = isNodeInCycle(neighbor, edges, visited, currentlyInStack)
-            if containsCycle:
+            isNodeContainedInCycle = isNodeInCycle(
+                neighbor, edges, visited, currentlyInStack
+            )
+            if isNodeContainedInCycle:
                 return True
-
         elif currentlyInStack[neighbor]:
             return True
 
     currentlyInStack[node] = False
+    return False
+
+
+edges = [[1, 2], [], [3, 4], [], [5], [6], [4]]
+print(cycleInGraph(edges))
+# True
+
+edges2 = [[1, 2], [], [3, 4], [], [5], [6], []]
+print(cycleInGraph(edges2))
+# False

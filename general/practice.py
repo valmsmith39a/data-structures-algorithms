@@ -126,18 +126,60 @@
 # print("merge sort result", mergeSort(array))
 
 
-def numberOfWaysToTraverseGraph(width, height):
-    numberOfWays = [[0 for _ in range(width + 1)] for _ in range(height + 1)]
-    for widthIdx in range(1, width + 1):
-        for heightIdx in range(1, height + 1):
-            if widthIdx == 1 or heightIdx == 1:
-                numberOfWays[heightIdx][widthIdx] = 1
-            else:
-                waysLeft = numberOfWays[heightIdx][widthIdx - 1]
-                waysUp = numberOfWays[heightIdx - 1][widthIdx]
-                numberOfWays[heightIdx][widthIdx] = waysLeft + waysUp
-    return numberOfWays[height][width]
+# def numberOfWaysToTraverseGraph(width, height):
+#     numberOfWays = [[0 for _ in range(width + 1)] for _ in range(height + 1)]
+#     for widthIdx in range(1, width + 1):
+#         for heightIdx in range(1, height + 1):
+#             if widthIdx == 1 or heightIdx == 1:
+#                 numberOfWays[heightIdx][widthIdx] = 1
+#             else:
+#                 waysLeft = numberOfWays[heightIdx][widthIdx - 1]
+#                 waysUp = numberOfWays[heightIdx - 1][widthIdx]
+#                 numberOfWays[heightIdx][widthIdx] = waysLeft + waysUp
+#     return numberOfWays[height][width]
 
 
-print(numberOfWaysToTraverseGraph(3, 3))
+# print(numberOfWaysToTraverseGraph(3, 3))
 # 6
+
+
+def cycleInGraph(edges):
+    numberOfNodes = len(edges)
+    visited = [False for _ in range(numberOfNodes)]
+    currentlyInStack = [False for _ in range(numberOfNodes)]
+
+    for node in range(numberOfNodes):
+        if visited[node]:
+            continue
+        isNodeContainedInCycle = isNodeInCycle(node, edges, visited, currentlyInStack)
+        if isNodeContainedInCycle:
+            return True
+    return False
+
+
+def isNodeInCycle(node, edges, visited, currentlyInStack):
+    visited[node] = True
+    currentlyInStack[node] = True
+
+    neighbors = edges[node]
+
+    for neighbor in neighbors:
+        if not visited[neighbor]:
+            isNeighborContainedInCycle = isNodeInCycle(
+                neighbor, edges, visited, currentlyInStack
+            )
+            if isNeighborContainedInCycle:
+                return True
+        elif currentlyInStack[neighbor]:
+            return True
+    currentlyInStack[node] = False
+    return False
+
+
+edges = [[1, 2], [], [3, 4], [], [5], [6], [4]]
+print(cycleInGraph(edges))
+# True
+
+edges2 = [[1, 2], [], [3, 4], [], [5], [6], []]
+print(cycleInGraph(edges2))
+# False
