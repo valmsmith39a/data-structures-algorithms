@@ -10,18 +10,17 @@ class Graph:
             self.graph[node1] = [node2]
         else:
             self.graph[node1].append(node2)
-
-    def dfs(self, start):
+    
+    def bfs(self, start): 
         visited = set()
+        queue = deque([start])
 
-        def dfs_recursive(node):
+        while queue:
+            node = queue.popleft()
             if node not in visited: 
-                    visited.add(node)
-                    print(node, end=' ')
-                    for neighbor in self.graph[node]:
-                        dfs_recursive(neighbor)
-        
-        dfs_recursive(start)
+                visited.add(node)
+                print(node, end=' ')
+                queue.extend(self.graph[node])
 
 class Node:
     def __init__(self, data):
