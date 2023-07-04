@@ -1,6 +1,16 @@
 
 class LongestSubstringWithoutRepeatingChars:
+    """
+    Problem: Longest Substring Without Repeating Characters (#3)
 
+    Key Insights: 
+    1. Sliding window with left and right pointers 
+    2. If char in char_set, move left pointer to the right
+    and remove from char_set until char no longer in char_set 
+
+    Time Complexity: O(n)
+    Space Complexity: O(n)
+    """
     def len_of_longest_substring(self, s: str) -> int:
         char_set = set()
         l = 0
