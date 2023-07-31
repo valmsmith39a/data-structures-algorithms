@@ -8,6 +8,12 @@ class AlienDictionary:
     1. Compare words, if character not the same, add to adjacency list 
     2. Traverse using post-order DFS
 
+    Context: 
+    Topological Sort: 
+    1. For Directed Acyclic Graph only (no cycles)
+    2. For every directed edge (u, v), u comes before v 
+    3. Must do a post-order DFS traversal: process the character (add to res) after DFS has visited all descendent nodes 
+
     Time Complexity: O(n), n is number of characters in all the words
     Space Complexity: O(n) space, n is number of characters in all the words 
     """
