@@ -5,7 +5,7 @@ class MaxSubarray:
     Problem: Maximum Subarray (#53)
 
     Key Insight: 
-    1. max subarray sum at each index is either the current number or the current number + max sum up to that index
+    1. max subarray sum at each index is either the current number or the current number + max subarray sum up to that index
     2. Kadane's algorithm (dynamic programming)
 
     Time Complexity: O(n) 
