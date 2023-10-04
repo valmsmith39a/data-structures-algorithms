@@ -1,6 +1,18 @@
 from typing import List
 
 class SearchInRotatedSortedArray: 
+    """
+    Problem: Search in Rotated Sorted Array (#33) 
+
+    Key Insight: 
+    1. Binary search 
+    2. Figure out if the left side or right side is sorted 
+    3. Figure out if the target is on the left side or right side 
+
+    Time Complexity: O(log n)
+    Space Complexity: O(1)
+    
+    """
 
     def search(self, nums: List[int], target: int) -> int: 
         left, right = 0, len(nums) - 1
